@@ -2,6 +2,9 @@ package com.example.aircraft_management_api.aircraft.controller;
 
 import com.example.aircraft_management_api.aircraft.dto.request.AircraftRequestDTO;
 import com.example.aircraft_management_api.aircraft.dto.response.AircraftResponseDTO;
+import com.example.aircraft_management_api.aircraft.dto.response.DecadeDistributionResponseDTO;
+import com.example.aircraft_management_api.aircraft.dto.response.ManufacturerDistributionResponseDTO;
+import com.example.aircraft_management_api.aircraft.dto.response.UnsoldResponseDTO;
 import com.example.aircraft_management_api.aircraft.entity.Aircraft;
 import com.example.aircraft_management_api.aircraft.service.AircraftService;
 import jakarta.validation.Valid;
@@ -11,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -82,5 +86,32 @@ public class AircraftController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/reports/unsold-count")
+    public ResponseEntity<UnsoldResponseDTO> getUnsoldCount() {
+        Long count = service.getUnsoldCount();
+        return ResponseEntity.ok(new UnsoldResponseDTO(count));
+    }
+
+    @GetMapping("/reports/distribution-by-decade")
+    public ResponseEntity<DecadeDistributionResponseDTO> getDistributionByDecade() {
+        Map<Integer, Long> distribution = service.getDistributionByDecade();
+        return ResponseEntity.ok(new DecadeDistributionResponseDTO(distribution));
+    }
+
+    @GetMapping("/reports/distribution-by-manufacturer")
+    public ResponseEntity<ManufacturerDistributionResponseDTO> getDistributionByManufacturer() {
+        Map<String, Long> distribution = service.getDistributionByManufacturer();
+        return ResponseEntity.ok(new ManufacturerDistributionResponseDTO(distribution));
+    }
+
+    @GetMapping("/reports/last-week")
+    public ResponseEntity<List<AircraftResponseDTO>> getAircraftsFromLastWeek() {
+        List<AircraftResponseDTO> list = service.getAircraftsFromLastWeek()
+                .stream()
+                .map(AircraftResponseDTO::new)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(list);
     }
 }
