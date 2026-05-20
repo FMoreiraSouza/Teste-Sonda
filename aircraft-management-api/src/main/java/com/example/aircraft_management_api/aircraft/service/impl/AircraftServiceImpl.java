@@ -3,6 +3,7 @@ package com.example.aircraft_management_api.aircraft.service.impl;
 import com.example.aircraft_management_api.aircraft.entity.Aircraft;
 import com.example.aircraft_management_api.aircraft.repository.AircraftRepository;
 import com.example.aircraft_management_api.aircraft.service.AircraftService;
+import com.example.aircraft_management_api.exception.BusinessException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,9 @@ public class AircraftServiceImpl implements AircraftService {
 
     @Override
     public Aircraft create(Aircraft aircraft) {
+        if (repository.existsByNameAndBrand(aircraft.getName(), aircraft.getBrand())) {
+            throw new BusinessException("Aircraft with same name and brand already exists");
+        }
         return repository.save(aircraft);
     }
 

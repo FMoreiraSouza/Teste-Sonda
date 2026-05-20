@@ -16,6 +16,7 @@ public interface AircraftRepository extends JpaRepository<Aircraft, Long> {
     List<Aircraft> findByYear(Integer year);
     boolean existsByNameAndBrandAndIdNot(String name, String brand, Long id);
     List<Aircraft> findByCreatedAtAfter(LocalDateTime date);
+    boolean existsByNameAndBrand(String name, String brand);
 
     @Query("SELECT a FROM Aircraft a WHERE a.year BETWEEN :start AND :end")
     List<Aircraft> findByDecade(@Param("start") Integer start, @Param("end") Integer end);
