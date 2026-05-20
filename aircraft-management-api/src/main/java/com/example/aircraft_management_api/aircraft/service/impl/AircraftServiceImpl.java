@@ -62,6 +62,11 @@ public class AircraftServiceImpl implements AircraftService {
     }
 
     @Override
+    public List<Aircraft> searchByCreatedAfter(LocalDateTime date) {
+        return repository.findByCreatedAtAfter(date);
+    }
+
+    @Override
     @Transactional
     public Aircraft update(Long id, Aircraft updatedAircraft) {
         Aircraft existing = findById(id);
