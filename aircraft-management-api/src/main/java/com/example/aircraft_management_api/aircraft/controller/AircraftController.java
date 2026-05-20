@@ -2,6 +2,7 @@ package com.example.aircraft_management_api.aircraft.controller;
 
 import com.example.aircraft_management_api.aircraft.dto.request.AircraftRequestDTO;
 import com.example.aircraft_management_api.aircraft.dto.response.AircraftResponseDTO;
+import com.example.aircraft_management_api.aircraft.entity.Aircraft;
 import com.example.aircraft_management_api.aircraft.service.AircraftService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -37,5 +38,32 @@ public class AircraftController {
     public ResponseEntity<AircraftResponseDTO> findById(@PathVariable Long id) {
         var aircraft = service.findById(id);
         return ResponseEntity.ok(new AircraftResponseDTO(aircraft));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<AircraftResponseDTO>> search(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String brand,
+            @RequestParam(required = false) Integer year,
+            @RequestParam(required = false) Integer decade) {
+
+        List<Aircraft> result;
+
+        if (name != null && !name.isBlank()) {
+            result = service.searchByName(name);
+        } else if (brand != null && !brand.isBlank()) {
+            result = service.searchByBrand(brand);
+        } else if (year != null) {
+            result = service.searchByYear(year);
+        } else if (decade != null) {
+            result = service.searchByDecade(decade);
+        } else {
+            result = service.findAll();
+        }
+
+        List<AircraftResponseDTO> list = result.stream()
+                .map(AircraftResponseDTO::new)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(list);
     }
 }

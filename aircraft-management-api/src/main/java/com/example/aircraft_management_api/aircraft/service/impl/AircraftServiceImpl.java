@@ -29,4 +29,26 @@ public class AircraftServiceImpl implements AircraftService {
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Aircraft not found with id: " + id));
     }
+
+    @Override
+    public List<Aircraft> searchByName(String name) {
+        return repository.findByNameContainingIgnoreCase(name);
+    }
+
+    @Override
+    public List<Aircraft> searchByBrand(String brand) {
+        return repository.findByBrandContainingIgnoreCase(brand);
+    }
+
+    @Override
+    public List<Aircraft> searchByYear(Integer year) {
+        return repository.findByYear(year);
+    }
+
+    @Override
+    public List<Aircraft> searchByDecade(Integer decade) {
+        int start = decade;
+        int end = decade + 9;
+        return repository.findByDecade(start, end);
+    }
 }

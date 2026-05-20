@@ -7,4 +7,8 @@ public interface AircraftService {
     Aircraft create(Aircraft aircraft);
     List<Aircraft> findAll();
     Aircraft findById(Long id);
+    List<Aircraft> searchByName(String name);
+    List<Aircraft> searchByBrand(String brand);
+    List<Aircraft> searchByYear(Integer year);
+    List<Aircraft> searchByDecade(Integer decade);
 }
