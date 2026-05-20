@@ -4,6 +4,7 @@ import com.example.aircraft_management_api.aircraft.entity.Aircraft;
 import com.example.aircraft_management_api.aircraft.repository.AircraftRepository;
 import com.example.aircraft_management_api.aircraft.service.AircraftService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -50,5 +51,26 @@ public class AircraftServiceImpl implements AircraftService {
         int start = decade;
         int end = decade + 9;
         return repository.findByDecade(start, end);
+    }
+
+    @Override
+    @Transactional
+    public Aircraft update(Long id, Aircraft updatedAircraft) {
+        Aircraft existing = findById(id);
+
+        if (repository.existsByNameAndBrandAndIdNot(updatedAircraft.getName(), updatedAircraft.getBrand(), id)) {
+            throw new RuntimeException("Another aircraft with same name and brand already exists");
+        }
+
+        existing.setName(updatedAircraft.getName());
+        existing.setBrand(updatedAircraft.getBrand());
+        existing.setYear(updatedAircraft.getYear());
+        existing.setDescription(updatedAircraft.getDescription());
+        existing.setSold(updatedAircraft.getSold());
+        existing.setIcaoCode(updatedAircraft.getIcaoCode());
+        existing.setFuelCapacity(updatedAircraft.getFuelCapacity());
+        existing.setAverageConsumption(updatedAircraft.getAverageConsumption());
+
+        return repository.save(existing);
     }
 }

@@ -11,4 +11,5 @@ public interface AircraftService {
     List<Aircraft> searchByBrand(String brand);
     List<Aircraft> searchByYear(Integer year);
     List<Aircraft> searchByDecade(Integer decade);
+    Aircraft update(Long id, Aircraft aircraft);
 }

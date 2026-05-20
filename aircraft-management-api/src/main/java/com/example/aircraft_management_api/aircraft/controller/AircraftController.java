@@ -66,4 +66,11 @@ public class AircraftController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(list);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<AircraftResponseDTO> update(@PathVariable Long id,
+                                                      @Valid @RequestBody AircraftRequestDTO dto) {
+        Aircraft updated = service.update(id, dto.toEntity());
+        return ResponseEntity.ok(new AircraftResponseDTO(updated));
+    }
 }
