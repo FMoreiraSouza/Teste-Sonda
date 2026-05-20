@@ -12,4 +12,5 @@ public interface AircraftService {
     List<Aircraft> searchByYear(Integer year);
     List<Aircraft> searchByDecade(Integer decade);
     Aircraft update(Long id, Aircraft aircraft);
+    void deleteById(Long id);
 }

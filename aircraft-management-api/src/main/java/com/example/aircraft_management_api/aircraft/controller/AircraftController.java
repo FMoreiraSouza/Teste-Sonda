@@ -73,4 +73,10 @@ public class AircraftController {
         Aircraft updated = service.update(id, dto.toEntity());
         return ResponseEntity.ok(new AircraftResponseDTO(updated));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }

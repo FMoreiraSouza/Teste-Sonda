@@ -73,4 +73,13 @@ public class AircraftServiceImpl implements AircraftService {
 
         return repository.save(existing);
     }
+
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        if (!repository.existsById(id)) {
+            throw new EntityNotFoundException("Aircraft not found with id: " + id);
+        }
+        repository.deleteById(id);
+    }
 }
