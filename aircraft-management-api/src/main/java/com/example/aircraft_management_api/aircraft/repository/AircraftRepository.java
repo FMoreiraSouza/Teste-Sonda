@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -14,6 +16,7 @@ public interface AircraftRepository extends JpaRepository<Aircraft, Long> {
     List<Aircraft> findByYear(Integer year);
     boolean existsByNameAndBrandAndIdNot(String name, String brand, Long id);
     boolean existsByNameAndBrand(String name, String brand);
+    List<Aircraft> findByCreatedAtAfter(LocalDateTime date);
 
     @Query("SELECT a FROM Aircraft a WHERE a.year BETWEEN :start AND :end")
     List<Aircraft> findByDecade(@Param("start") Integer start, @Param("end") Integer end);
