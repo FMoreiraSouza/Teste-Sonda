@@ -14,11 +14,17 @@ public interface AircraftRepository extends JpaRepository<Aircraft, Long> {
     List<Aircraft> findByNameContainingIgnoreCase(String name);
     List<Aircraft> findByBrandContainingIgnoreCase(String brand);
     List<Aircraft> findByYear(Integer year);
+    List<Aircraft> findByCreatedAtAfter(LocalDateTime date);
     boolean existsByNameAndBrandAndIdNot(String name, String brand, Long id);
     boolean existsByNameAndBrand(String name, String brand);
-    List<Aircraft> findByCreatedAtAfter(LocalDateTime date);
 
     @Query("SELECT a FROM Aircraft a WHERE a.year BETWEEN :start AND :end")
     List<Aircraft> findByDecade(@Param("start") Integer start, @Param("end") Integer end);
+    Long countBySoldFalse();
 
+    @Query("SELECT a.year, COUNT(a) FROM Aircraft a GROUP BY a.year")
+    List<Object[]> countByYear();
+
+    @Query("SELECT a.brand, COUNT(a) FROM Aircraft a GROUP BY a.brand")
+    List<Object[]> countByBrand();
 }

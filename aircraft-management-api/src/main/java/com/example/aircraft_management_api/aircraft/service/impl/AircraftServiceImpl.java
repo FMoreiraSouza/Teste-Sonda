@@ -10,9 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-
-import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -94,5 +94,41 @@ public class AircraftServiceImpl implements AircraftService {
             throw new EntityNotFoundException("Aircraft not found with id: " + id);
         }
         repository.deleteById(id);
+    }
+
+    @Override
+    public Long getUnsoldCount() {
+        return repository.countBySoldFalse();
+    }
+
+    @Override
+    public Map<Integer, Long> getDistributionByDecade() {
+        List<Object[]> results = repository.countByYear();
+        Map<Integer, Long> decadeMap = new HashMap<>();
+        for (Object[] row : results) {
+            Integer year = (Integer) row[0];
+            Long count = (Long) row[1];
+            Integer decade = (year / 10) * 10;
+            decadeMap.put(decade, decadeMap.getOrDefault(decade, 0L) + count);
+        }
+        return decadeMap;
+    }
+
+    @Override
+    public Map<String, Long> getDistributionByManufacturer() {
+        List<Object[]> results = repository.countByBrand();
+        Map<String, Long> brandMap = new HashMap<>();
+        for (Object[] row : results) {
+            String brand = (String) row[0];
+            Long count = (Long) row[1];
+            brandMap.put(brand, count);
+        }
+        return brandMap;
+    }
+
+    @Override
+    public List<Aircraft> getAircraftsFromLastWeek() {
+        LocalDateTime oneWeekAgo = LocalDateTime.now().minusDays(7);
+        return repository.findByCreatedAtAfter(oneWeekAgo);
     }
 }
