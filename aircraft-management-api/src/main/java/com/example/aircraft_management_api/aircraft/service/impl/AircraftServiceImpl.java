@@ -8,6 +8,8 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -55,6 +57,11 @@ public class AircraftServiceImpl implements AircraftService {
         int start = decade;
         int end = decade + 9;
         return repository.findByDecade(start, end);
+    }
+
+    @Override
+    public List<Aircraft> searchByCreatedAfter(LocalDateTime date) {
+        return repository.findByCreatedAtAfter(date);
     }
 
     @Override

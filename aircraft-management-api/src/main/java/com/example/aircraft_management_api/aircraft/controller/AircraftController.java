@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,7 +47,8 @@ public class AircraftController {
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String brand,
             @RequestParam(required = false) Integer year,
-            @RequestParam(required = false) Integer decade) {
+            @RequestParam(required = false) Integer decade,
+            @RequestParam(required = false) String createdAfter) {
 
         List<Aircraft> result;
 
@@ -57,6 +60,9 @@ public class AircraftController {
             result = service.searchByYear(year);
         } else if (decade != null) {
             result = service.searchByDecade(decade);
+        } else if (createdAfter != null && !createdAfter.isBlank()) {
+            LocalDateTime date = LocalDateTime.parse(createdAfter + "T00:00:00");
+            result = service.searchByCreatedAfter(date);
         } else {
             result = service.findAll();
         }
