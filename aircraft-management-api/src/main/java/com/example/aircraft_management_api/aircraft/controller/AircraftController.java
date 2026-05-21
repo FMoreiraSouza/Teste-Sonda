@@ -104,7 +104,7 @@ public class AircraftController {
     }
 
     @GetMapping("/reports/distribution-by-decade")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @   PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<DecadeDistributionResponseDTO> getDistributionByDecade() {
         Map<Integer, Long> distribution = service.getDistributionByDecade();
         return ResponseEntity.ok(new DecadeDistributionResponseDTO(distribution));
