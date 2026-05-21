@@ -17,8 +17,4 @@ public interface AircraftService {
     List<Aircraft> searchByCreatedAfter(LocalDateTime date);
     Aircraft update(Long id, Aircraft aircraft);
     void deleteById(Long id);
-    Long getUnsoldCount();
-    Map<Integer, Long> getDistributionByDecade();
-    Map<String, Long> getDistributionByManufacturer();
-    List<Aircraft> getAircraftsFromLastWeek();
 }
