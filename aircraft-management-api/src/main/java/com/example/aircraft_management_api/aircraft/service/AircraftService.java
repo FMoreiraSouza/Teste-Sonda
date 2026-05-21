@@ -4,6 +4,7 @@ import com.example.aircraft_management_api.aircraft.entity.Aircraft;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 public interface AircraftService {
     Aircraft create(Aircraft aircraft);
@@ -16,4 +17,8 @@ public interface AircraftService {
     List<Aircraft> searchByCreatedAfter(LocalDateTime date);
     Aircraft update(Long id, Aircraft aircraft);
     void deleteById(Long id);
+    Long getUnsoldCount();
+    Map<Integer, Long> getDistributionByDecade();
+    Map<String, Long> getDistributionByManufacturer();
+    List<Aircraft> getAircraftsFromLastWeek();
 }
