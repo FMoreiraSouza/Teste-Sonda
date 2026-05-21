@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -26,12 +27,14 @@ public class AircraftController {
     private final AircraftService service;
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<AircraftResponseDTO> create(@Valid @RequestBody AircraftRequestDTO dto) {
         var aircraft = service.create(dto.toEntity());
         return ResponseEntity.status(HttpStatus.CREATED).body(new AircraftResponseDTO(aircraft));
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<List<AircraftResponseDTO>> findAll() {
         List<AircraftResponseDTO> list = service.findAll()
                 .stream()
@@ -41,12 +44,14 @@ public class AircraftController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<AircraftResponseDTO> findById(@PathVariable Long id) {
         var aircraft = service.findById(id);
         return ResponseEntity.ok(new AircraftResponseDTO(aircraft));
     }
 
     @GetMapping("/search")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<List<AircraftResponseDTO>> search(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String brand,
@@ -78,36 +83,42 @@ public class AircraftController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<AircraftResponseDTO> update(@PathVariable Long id, @Valid @RequestBody AircraftRequestDTO dto) {
         Aircraft updated = service.update(id, dto.toEntity());
         return ResponseEntity.ok(new AircraftResponseDTO(updated));
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/reports/unsold-count")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<UnsoldResponseDTO> getUnsoldCount() {
         Long count = service.getUnsoldCount();
         return ResponseEntity.ok(new UnsoldResponseDTO(count));
     }
 
     @GetMapping("/reports/distribution-by-decade")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<DecadeDistributionResponseDTO> getDistributionByDecade() {
         Map<Integer, Long> distribution = service.getDistributionByDecade();
         return ResponseEntity.ok(new DecadeDistributionResponseDTO(distribution));
     }
 
     @GetMapping("/reports/distribution-by-manufacturer")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<ManufacturerDistributionResponseDTO> getDistributionByManufacturer() {
         Map<String, Long> distribution = service.getDistributionByManufacturer();
         return ResponseEntity.ok(new ManufacturerDistributionResponseDTO(distribution));
     }
 
     @GetMapping("/reports/last-week")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<List<AircraftResponseDTO>> getAircraftsFromLastWeek() {
         List<AircraftResponseDTO> list = service.getAircraftsFromLastWeek()
                 .stream()
