@@ -1,5 +1,6 @@
 ﻿import { useState } from "react";
 import styles from "./Login.module.css";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -40,6 +41,9 @@ export default function Login() {
             Entrar
           </button>
         </form>
+        <div className={styles.registerLink}>
+          <Link to="/register">Criar Conta</Link>
+        </div>
         <div className={styles.footer}>
           <span>Engenharia em Movimento</span>
         </div>

@@ -2,6 +2,7 @@
 import Login from "../features/auth/pages/Login";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../features/home/pages/Home";
+import Register from "../features/auth/pages/Register";
 
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -24,6 +25,7 @@ export default function AppRoutes() {
           <Route index element={<Home />} />
         </Route>
         <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );

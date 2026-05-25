@@ -1,0 +1,65 @@
+﻿.registerContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0b2b40 0%, #1a4a6f 100%);
+}
+
+.registerCard {
+  background: white;
+  padding: 2rem;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.2);
+}
+
+.registerCard h1 {
+  font-size: 1.8rem;
+  color: #0b2b40;
+  margin-bottom: 0.5rem;
+}
+
+.registerCard p {
+  color: #5e6f8d;
+  margin-bottom: 1.5rem;
+}
+
+.registerCard input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 40px;
+  font-size: 0.9rem;
+}
+
+.registerCard button {
+  width: 100%;
+  padding: 12px;
+  background: #0f5b7a;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.error {
+  margin-top: 1rem;
+  color: #e53e3e;
+  font-size: 0.85rem;
+}
+
+.loginLink {
+  margin-top: 1rem;
+}
+
+.loginLink a {
+  color: #0f5b7a;
+  text-decoration: none;
+  font-size: 0.85rem;
+}

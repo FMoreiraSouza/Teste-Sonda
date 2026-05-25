@@ -64,6 +64,19 @@
   background: #0a425a;
 }
 
+.registerLink {
+  margin-top: 1rem;
+  text-align: center;
+}
+.registerLink a {
+  color: #0f5b7a;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+.registerLink a:hover {
+  text-decoration: underline;
+}
+
 .footer {
   margin-top: 2rem;
   font-size: 0.75rem;
