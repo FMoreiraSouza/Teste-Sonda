@@ -50,8 +50,6 @@ public class Aircraft {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    private String imageUrl;
-
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();

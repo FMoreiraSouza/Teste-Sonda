@@ -20,7 +20,6 @@ public class AircraftResponseDTO {
     private Double range;
     private String rangeCategory;
     private LocalDateTime createdAt;
-    private String imageUrl;
 
     public AircraftResponseDTO(Aircraft aircraft) {
         this.id = aircraft.getId();
@@ -35,6 +34,5 @@ public class AircraftResponseDTO {
         this.range = aircraft.getRange();
         this.rangeCategory = aircraft.getRangeCategory();
         this.createdAt = aircraft.getCreatedAt();
-        this.imageUrl = aircraft.getImageUrl();
     }
 }
