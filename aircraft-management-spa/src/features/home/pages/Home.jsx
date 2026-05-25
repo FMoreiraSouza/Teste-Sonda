@@ -1,5 +1,7 @@
-﻿import FleetStats from "../../home/components/FleetStats";
+﻿import { useState } from "react";
+import FleetStats from "../../home/components/FleetStats";
 import Fleet from "../../home/components/Fleet";
+import AircraftFormModal from "../../home/components/AircraftFormModal";
 import { useFleetData } from "../hooks/useFleetData";
 import styles from "./Home.module.css";
 
@@ -17,21 +19,39 @@ const Home = ({ onToast }) => {
     pageSize,
   } = useFleetData();
 
+  // Estado do modal
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingAircraft, setEditingAircraft] = useState(null);
+
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
     resetPage();
   };
 
+  // Abrir modal para criar nova aeronave
   const handleCreate = () => {
-    onToast("Ação concluída com sucesso. (Simulação: nova aeronave)");
+    setEditingAircraft(null);
+    setModalOpen(true);
+  };
+
+  // Abrir modal para editar aeronave
+  const handleEdit = (aircraft) => {
+    setEditingAircraft(aircraft);
+    setModalOpen(true);
+  };
+
+  // Simular salvamento (sem API)
+  const handleFormSubmit = (formData) => {
+    const message = editingAircraft
+      ? `Aeronave ${editingAircraft.prefix} atualizada com sucesso (simulação)`
+      : `Nova aeronave "${formData.name}" criada com sucesso (simulação)`;
+    onToast(message);
+    setModalOpen(false);
+    setEditingAircraft(null);
   };
 
   const handleView = (aircraft) => {
     onToast(`Visualizando ${aircraft.prefix} - ${aircraft.model}`);
-  };
-
-  const handleEdit = (aircraft) => {
-    onToast(`Edição da aeronave ${aircraft.prefix} iniciada com sucesso.`);
   };
 
   const handleDelete = (aircraft) => {
@@ -73,6 +93,17 @@ const Home = ({ onToast }) => {
           <span>Regulatory Compliance</span>
         </div>
       </div>
+
+      {/* Modal do formulário */}
+      <AircraftFormModal
+        isOpen={modalOpen}
+        onClose={() => {
+          setModalOpen(false);
+          setEditingAircraft(null);
+        }}
+        onSubmit={handleFormSubmit}
+        initialData={editingAircraft}
+      />
     </>
   );
 };
