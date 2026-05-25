@@ -1,7 +1,13 @@
 ﻿import { useState, useEffect } from "react";
 import styles from "./AircraftFormModal.module.css";
 
-const AircraftFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
+const AircraftFormModal = ({
+  isOpen,
+  onClose,
+  onSubmit,
+  initialData,
+  isSubmitting = false,
+}) => {
   const [form, setForm] = useState({
     name: "",
     brand: "",
@@ -129,7 +135,9 @@ const AircraftFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
             <button type="button" onClick={onClose}>
               Cancelar
             </button>
-            <button type="submit">Salvar</button>
+            <button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Salvando..." : "Salvar"}
+            </button>{" "}
           </div>
         </form>
       </div>

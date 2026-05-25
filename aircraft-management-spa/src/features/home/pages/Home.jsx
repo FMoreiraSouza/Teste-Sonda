@@ -3,6 +3,7 @@ import FleetStats from "../../home/components/FleetStats";
 import Fleet from "../../home/components/Fleet";
 import AircraftFormModal from "../../home/components/AircraftFormModal";
 import { useFleetData } from "../hooks/useFleetData";
+import { createAircraft } from "../../../services/aircraftService";
 import styles from "./Home.module.css";
 
 const Home = ({ onToast }) => {
@@ -17,37 +18,58 @@ const Home = ({ onToast }) => {
     stats,
     resetPage,
     pageSize,
+    refresh,
   } = useFleetData();
 
-  // Estado do modal
   const [modalOpen, setModalOpen] = useState(false);
   const [editingAircraft, setEditingAircraft] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
     resetPage();
   };
 
-  // Abrir modal para criar nova aeronave
   const handleCreate = () => {
     setEditingAircraft(null);
     setModalOpen(true);
   };
 
-  // Abrir modal para editar aeronave
   const handleEdit = (aircraft) => {
     setEditingAircraft(aircraft);
     setModalOpen(true);
   };
 
-  // Simular salvamento (sem API)
-  const handleFormSubmit = (formData) => {
-    const message = editingAircraft
-      ? `Aeronave ${editingAircraft.prefix} atualizada com sucesso (simulação)`
-      : `Nova aeronave "${formData.name}" criada com sucesso (simulação)`;
-    onToast(message);
-    setModalOpen(false);
-    setEditingAircraft(null);
+  const handleFormSubmit = async (formData) => {
+    setSubmitting(true);
+    try {
+      if (editingAircraft) {
+        onToast(
+          `Edição da aeronave ${editingAircraft.prefix} (API ainda não implementada)`,
+        );
+      } else {
+        const payload = {
+          name: formData.name,
+          brand: formData.brand,
+          year: parseInt(formData.year),
+          description: formData.description,
+          sold: formData.sold,
+          icaoCode: formData.icaoCode,
+          fuelCapacity: parseFloat(formData.fuelCapacity),
+          averageConsumption: parseFloat(formData.averageConsumption),
+        };
+        await createAircraft(payload);
+        onToast(`Aeronave "${formData.name}" criada com sucesso!`);
+        await refresh();
+      }
+      setModalOpen(false);
+      setEditingAircraft(null);
+    } catch (error) {
+      console.error(error);
+      onToast(error.response?.data?.message || "Erro ao salvar aeronave");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleView = (aircraft) => {
@@ -55,7 +77,7 @@ const Home = ({ onToast }) => {
   };
 
   const handleDelete = (aircraft) => {
-    onToast(`Aeronave ${aircraft.prefix} excluída (simulação).`);
+    onToast(`Exclusão de ${aircraft.prefix} (API ainda não implementada)`);
   };
 
   return (
@@ -94,7 +116,6 @@ const Home = ({ onToast }) => {
         </div>
       </div>
 
-      {/* Modal do formulário */}
       <AircraftFormModal
         isOpen={modalOpen}
         onClose={() => {
@@ -103,6 +124,7 @@ const Home = ({ onToast }) => {
         }}
         onSubmit={handleFormSubmit}
         initialData={editingAircraft}
+        isSubmitting={submitting}
       />
     </>
   );
