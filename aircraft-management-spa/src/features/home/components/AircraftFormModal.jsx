@@ -22,14 +22,14 @@ const AircraftFormModal = ({
   useEffect(() => {
     if (initialData) {
       setForm({
-        name: initialData.model || "",
-        brand: "",
-        year: new Date().getFullYear(),
-        description: "",
-        sold: false,
-        icaoCode: "",
-        fuelCapacity: "",
-        averageConsumption: "",
+        name: initialData.name || "",
+        brand: initialData.brand || "",
+        year: initialData.year || new Date().getFullYear(),
+        description: initialData.description || "",
+        sold: initialData.sold || false,
+        icaoCode: initialData.icaoCode || "",
+        fuelCapacity: initialData.fuelCapacity || "",
+        averageConsumption: initialData.averageConsumption || "",
       });
     } else {
       setForm({
@@ -67,69 +67,94 @@ const AircraftFormModal = ({
         <h2>{initialData ? "Editar Aeronave" : "Nova Aeronave"}</h2>
         <form onSubmit={handleSubmit}>
           <div className={styles.formGrid}>
-            <input
-              name="name"
-              placeholder="Nome"
-              value={form.name}
-              onChange={handleChange}
-              required
-            />
-            <input
-              name="brand"
-              placeholder="Marca"
-              value={form.brand}
-              onChange={handleChange}
-              required
-            />
-            <input
-              name="year"
-              type="number"
-              placeholder="Ano"
-              value={form.year}
-              onChange={handleChange}
-              required
-            />
-            <input
-              name="icaoCode"
-              placeholder="ICAO Code"
-              value={form.icaoCode}
-              onChange={handleChange}
-              maxLength={4}
-            />
-            <input
-              name="fuelCapacity"
-              type="number"
-              step="any"
-              placeholder="Capacidade (L)"
-              value={form.fuelCapacity}
-              onChange={handleChange}
-              required
-            />
-            <input
-              name="averageConsumption"
-              type="number"
-              step="any"
-              placeholder="Consumo (km/L)"
-              value={form.averageConsumption}
-              onChange={handleChange}
-              required
-            />
-            <textarea
-              name="description"
-              placeholder="Descrição"
-              value={form.description}
-              onChange={handleChange}
-              rows="2"
-            />
-            <label className={styles.checkboxLabel}>
+            <div>
+              <label>Nome*</label>
               <input
-                type="checkbox"
-                name="sold"
-                checked={form.sold}
+                name="name"
+                placeholder="Ex: Boeing 737-800"
+                value={form.name}
                 onChange={handleChange}
+                required
               />
-              Vendido
-            </label>
+            </div>
+            <div>
+              <label>Marca*</label>
+              <input
+                name="brand"
+                placeholder="Ex: Boeing"
+                value={form.brand}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Ano*</label>
+              <input
+                name="year"
+                type="number"
+                placeholder="Ano"
+                value={form.year}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>ICAO Code (4 letras)</label>
+              <input
+                name="icaoCode"
+                placeholder="Ex: B738"
+                value={form.icaoCode}
+                onChange={handleChange}
+                maxLength={4}
+              />
+            </div>
+            <div>
+              <label>Capacidade (L)*</label>
+              <input
+                name="fuelCapacity"
+                type="number"
+                step="any"
+                placeholder="Ex: 26000"
+                value={form.fuelCapacity}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Consumo (km/L)*</label>
+              <input
+                name="averageConsumption"
+                type="number"
+                step="any"
+                placeholder="Ex: 0.18"
+                value={form.averageConsumption}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className={styles.fullWidth}>
+              <label>Descrição</label>
+              <textarea
+                name="description"
+                placeholder="Descrição da aeronave"
+                value={form.description}
+                onChange={handleChange}
+                rows="2"
+              />
+            </div>
+            <div className={styles.fullWidth}>
+              <div className={styles.fullWidth}>
+                <label className={styles.checkboxLabel}>
+                  <span>Vendido</span>
+                  <input
+                    type="checkbox"
+                    name="sold"
+                    checked={form.sold}
+                    onChange={handleChange}
+                  />
+                </label>
+              </div>
+            </div>
           </div>
           <div className={styles.modalActions}>
             <button type="button" onClick={onClose}>
@@ -137,7 +162,7 @@ const AircraftFormModal = ({
             </button>
             <button type="submit" disabled={isSubmitting}>
               {isSubmitting ? "Salvando..." : "Salvar"}
-            </button>{" "}
+            </button>
           </div>
         </form>
       </div>

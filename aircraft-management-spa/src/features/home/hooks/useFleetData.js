@@ -12,12 +12,27 @@ export const useFleetData = () => {
     try {
       setLoading(true);
       const data = await fetchAircrafts();
+      // Mapeia os campos do backend para o formato esperado pelos componentes
       const mapped = data.map((ac) => ({
         id: ac.id,
+        name: ac.name,
+        brand: ac.brand,
+        year: ac.year,
+        description: ac.description,
+        sold: ac.sold,
+        icaoCode: ac.icaoCode,
+        fuelCapacity: ac.fuelCapacity,
+        averageConsumption: ac.averageConsumption,
+        range: ac.range,
+        rangeCategory: ac.rangeCategory,
+        createdAt: ac.createdAt,
+        // Para compatibilidade com a tabela (prefixo pode ser o ICAO ou parte do nome)
         prefix: ac.icaoCode || ac.name.substring(0, 6).toUpperCase(),
         model: ac.name,
         status: ac.sold ? "Sold" : "Active",
-        lastInspection: new Date(ac.createdAt).toISOString().split("T")[0],
+        lastInspection: ac.createdAt
+          ? new Date(ac.createdAt).toISOString().split("T")[0]
+          : "-",
       }));
       setAircraft(mapped);
     } catch (error) {
@@ -37,7 +52,8 @@ export const useFleetData = () => {
     return aircraft.filter(
       (ac) =>
         ac.prefix.toLowerCase().includes(term) ||
-        ac.model.toLowerCase().includes(term),
+        ac.model.toLowerCase().includes(term) ||
+        ac.brand.toLowerCase().includes(term),
     );
   }, [aircraft, searchTerm]);
 
@@ -48,12 +64,10 @@ export const useFleetData = () => {
   }, [filteredAircraft, currentPage, pageSize]);
 
   const stats = useMemo(() => {
-    const active = aircraft.filter((a) => a.status === "Active").length;
-    const maintenance = aircraft.filter(
-      (a) => a.status === "Maintenance",
-    ).length;
-    const grounded = aircraft.filter((a) => a.status === "Grounded").length;
-    return { total: aircraft.length, active, maintenance, grounded };
+    const total = aircraft.length;
+    const active = aircraft.filter((a) => !a.sold).length;
+    const maintenance = 0;
+    return { total, active, maintenance };
   }, [aircraft]);
 
   const resetPage = () => setCurrentPage(1);
