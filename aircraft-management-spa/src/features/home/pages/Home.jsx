@@ -34,6 +34,10 @@ const Home = ({ onToast }) => {
     onToast(`Edição da aeronave ${aircraft.prefix} iniciada com sucesso.`);
   };
 
+  const handleDelete = (aircraft) => {
+    onToast(`Aeronave ${aircraft.prefix} excluída (simulação).`);
+  };
+
   return (
     <>
       <div className={styles["top-header"]}>
@@ -57,6 +61,7 @@ const Home = ({ onToast }) => {
           onView={handleView}
           onEdit={handleEdit}
           onCreate={handleCreate}
+          onDelete={handleDelete}
         />
       </div>
 

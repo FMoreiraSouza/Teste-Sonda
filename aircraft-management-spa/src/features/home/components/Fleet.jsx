@@ -15,6 +15,7 @@ const Fleet = ({
   onView,
   onEdit,
   onCreate,
+  onDelete,
 }) => {
   const start = (currentPage - 1) * pageSize + 1;
   const end = Math.min(currentPage * pageSize, filteredCount);
@@ -43,24 +44,23 @@ const Fleet = ({
         </div>
       </div>
 
-      <div className={styles["two-columns"]}>
-        <div className={styles["table-container"]}>
-          <FleetTable
-            aircraft={paginatedData}
-            onView={onView}
-            onEdit={onEdit}
+      <div className={styles["table-container"]}>
+        <FleetTable
+          aircraft={paginatedData}
+          onView={onView}
+          onEdit={onEdit}
+          onDelete={onDelete}
+        />
+        {filteredCount > 0 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={onPageChange}
+            start={start}
+            end={end}
+            total={filteredCount}
           />
-          {filteredCount > 0 && (
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={onPageChange}
-              start={start}
-              end={end}
-              total={filteredCount}
-            />
-          )}
-        </div>
+        )}
       </div>
     </>
   );
