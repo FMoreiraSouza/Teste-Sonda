@@ -16,8 +16,8 @@ const StatusBadge = ({ status }) => {
   );
 };
 
-const FleetTable = ({ aircraft, onView, onEdit, onDelete }) => {
-  if (aircraft.length === 0) {
+const FleetTable = ({ aircraft = [], onView, onEdit, onDelete }) => {
+  if (!aircraft || aircraft.length === 0) {
     return (
       <div style={{ padding: "2rem", textAlign: "center" }}>
         Nenhuma aeronave encontrada

@@ -2,8 +2,13 @@
 import FleetStats from "../../home/components/FleetStats";
 import Fleet from "../../home/components/Fleet";
 import AircraftFormModal from "../../home/components/AircraftFormModal";
+import ViewAircraftModal from "../../home/components/ViewAircraftModal";
 import { useFleetData } from "../hooks/useFleetData";
-import { createAircraft } from "../../../services/aircraftService";
+import {
+  createAircraft,
+  deleteAircraft,
+  updateAircraft,
+} from "../../../services/aircraftService";
 import styles from "./Home.module.css";
 
 const Home = ({ onToast }) => {
@@ -25,6 +30,9 @@ const Home = ({ onToast }) => {
   const [editingAircraft, setEditingAircraft] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
+  const [viewModalOpen, setViewModalOpen] = useState(false);
+  const [viewingAircraft, setViewingAircraft] = useState(null);
+
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
     resetPage();
@@ -44,9 +52,18 @@ const Home = ({ onToast }) => {
     setSubmitting(true);
     try {
       if (editingAircraft) {
-        onToast(
-          `Edição da aeronave ${editingAircraft.prefix} (API ainda não implementada)`,
-        );
+        const payload = {
+          name: formData.name,
+          brand: formData.brand,
+          year: parseInt(formData.year),
+          description: formData.description,
+          sold: formData.sold,
+          icaoCode: formData.icaoCode,
+          fuelCapacity: parseFloat(formData.fuelCapacity),
+          averageConsumption: parseFloat(formData.averageConsumption),
+        };
+        await updateAircraft(editingAircraft.id, payload);
+        onToast(`Aeronave "${formData.name}" atualizada com sucesso!`);
       } else {
         const payload = {
           name: formData.name,
@@ -60,8 +77,8 @@ const Home = ({ onToast }) => {
         };
         await createAircraft(payload);
         onToast(`Aeronave "${formData.name}" criada com sucesso!`);
-        await refresh();
       }
+      await refresh();
       setModalOpen(false);
       setEditingAircraft(null);
     } catch (error) {
@@ -73,11 +90,25 @@ const Home = ({ onToast }) => {
   };
 
   const handleView = (aircraft) => {
-    onToast(`Visualizando ${aircraft.prefix} - ${aircraft.model}`);
+    setViewingAircraft(aircraft);
+    setViewModalOpen(true);
   };
 
-  const handleDelete = (aircraft) => {
-    onToast(`Exclusão de ${aircraft.prefix} (API ainda não implementada)`);
+  const handleDelete = async (aircraft) => {
+    if (
+      window.confirm(
+        `Tem certeza que deseja excluir a aeronave ${aircraft.name}?`,
+      )
+    ) {
+      try {
+        await deleteAircraft(aircraft.id);
+        onToast(`Aeronave ${aircraft.name} excluída com sucesso!`);
+        await refresh();
+      } catch (error) {
+        console.error(error);
+        onToast(error.response?.data?.message || "Erro ao excluir aeronave");
+      }
+    }
   };
 
   return (
@@ -125,6 +156,15 @@ const Home = ({ onToast }) => {
         onSubmit={handleFormSubmit}
         initialData={editingAircraft}
         isSubmitting={submitting}
+      />
+
+      <ViewAircraftModal
+        isOpen={viewModalOpen}
+        onClose={() => {
+          setViewModalOpen(false);
+          setViewingAircraft(null);
+        }}
+        aircraft={viewingAircraft}
       />
     </>
   );
