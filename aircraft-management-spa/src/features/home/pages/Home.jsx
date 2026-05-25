@@ -1,6 +1,7 @@
 ﻿import FleetStats from "../../home/components/FleetStats";
 import Fleet from "../../home/components/Fleet";
 import { useFleetData } from "../hooks/useFleetData";
+import styles from "./Home.module.css";
 
 const Home = ({ onToast }) => {
   const {
@@ -35,13 +36,13 @@ const Home = ({ onToast }) => {
 
   return (
     <>
-      <div className="top-header">
-        <div className="breadcrumb">
+      <div className={styles["top-header"]}>
+        <div className={styles.breadcrumb}>
           <span>FLEET MANAGEMENT</span>
         </div>
       </div>
 
-      <div className="dashboard-wrapper">
+      <div className={styles["dashboard-wrapper"]}>
         <FleetStats stats={stats} />
 
         <Fleet
@@ -59,9 +60,9 @@ const Home = ({ onToast }) => {
         />
       </div>
 
-      <div className="app-footer">
+      <div className={styles["app-footer"]}>
         <div>© 2026 AeroControl. All rights reserved.</div>
-        <div className="footer-links">
+        <div className={styles["footer-links"]}>
           <span>Privacy Policy</span>
           <span>Terms of Use</span>
           <span>Regulatory Compliance</span>

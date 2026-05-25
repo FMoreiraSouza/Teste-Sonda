@@ -1,8 +1,8 @@
 import { useState } from "react";
-import "./App.css";
 import Sidebar from "./components/layout/Sidebar";
 import Home from "./features/home/pages/Home";
 import Toast from "./components/common/Toast";
+import styles from "./App.module.css";
 
 function App() {
   const [toastMessage, setToastMessage] = useState("");
@@ -12,9 +12,9 @@ function App() {
   };
 
   return (
-    <div className="app-container">
+    <div className={styles["app-container"]}>
       <Sidebar />
-      <div className="main-content">
+      <div className={styles["main-content"]}>
         <Home onToast={showToast} />
       </div>
       <Toast message={toastMessage} onClose={() => setToastMessage("")} />

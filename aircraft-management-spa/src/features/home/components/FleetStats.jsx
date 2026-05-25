@@ -1,20 +1,22 @@
-﻿const FleetStats = ({ stats }) => {
+﻿import styles from "./FleetStats.module.css";
+
+const FleetStats = ({ stats }) => {
   return (
-    <div className="stats-grid">
-      <div className="stat-card">
-        <div className="stat-title">TOTAL FLEET</div>
-        <div className="stat-number">{stats.total}</div>
-        <div className="stat-sub">Frota registrada</div>
+    <div className={styles["stats-grid"]}>
+      <div className={styles["stat-card"]}>
+        <div className={styles["stat-title"]}>TOTAL FLEET</div>
+        <div className={styles["stat-number"]}>{stats.total}</div>
+        <div className={styles["stat-sub"]}>Frota registrada</div>
       </div>
-      <div className="stat-card">
-        <div className="stat-title">ACTIVE</div>
-        <div className="stat-number">{stats.active}</div>
-        <div className="stat-sub">Operacional</div>
+      <div className={styles["stat-card"]}>
+        <div className={styles["stat-title"]}>ACTIVE</div>
+        <div className={styles["stat-number"]}>{stats.active}</div>
+        <div className={styles["stat-sub"]}>Operacional</div>
       </div>
-      <div className="stat-card">
-        <div className="stat-title">MAINTENANCE</div>
-        <div className="stat-number">{stats.maintenance}</div>
-        <div className="stat-sub">Em manutenção</div>
+      <div className={styles["stat-card"]}>
+        <div className={styles["stat-title"]}>MAINTENANCE</div>
+        <div className={styles["stat-number"]}>{stats.maintenance}</div>
+        <div className={styles["stat-sub"]}>Em manutenção</div>
       </div>
     </div>
   );

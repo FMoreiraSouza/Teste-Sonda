@@ -1,4 +1,6 @@
-﻿const Pagination = ({
+﻿import styles from "./Pagination.module.css";
+
+const Pagination = ({
   currentPage,
   totalPages,
   onPageChange,
@@ -7,20 +9,20 @@
   total,
 }) => {
   return (
-    <div className="pagination">
+    <div className={styles.pagination}>
       <span>
         Mostrando {start}-{end} de {total} aeronaves
       </span>
-      <div className="pagination-controls">
+      <div className={styles["pagination-controls"]}>
         <button
-          className="page-btn"
+          className={styles["page-btn"]}
           disabled={currentPage === 1}
           onClick={() => onPageChange(currentPage - 1)}
         >
           Anterior
         </button>
         <button
-          className="page-btn"
+          className={styles["page-btn"]}
           disabled={currentPage === totalPages || totalPages === 0}
           onClick={() => onPageChange(currentPage + 1)}
         >

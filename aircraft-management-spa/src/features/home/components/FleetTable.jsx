@@ -1,4 +1,5 @@
 ﻿import { FiEye, FiEdit } from "react-icons/fi";
+import styles from "./FleetTable.module.css";
 
 const StatusBadge = ({ status }) => {
   const statusClass =
@@ -8,8 +9,8 @@ const StatusBadge = ({ status }) => {
         ? "maintenance"
         : "grounded";
   return (
-    <span className="status-badge">
-      <span className={`status-dot ${statusClass}`}></span>
+    <span className={styles["status-badge"]}>
+      <span className={`${styles["status-dot"]} ${styles[statusClass]}`}></span>
       {status}
     </span>
   );
@@ -25,7 +26,7 @@ const FleetTable = ({ aircraft, onView, onEdit }) => {
   }
 
   return (
-    <table className="fleet-table">
+    <table className={styles["fleet-table"]}>
       <thead>
         <tr>
           <th>PREFIX (REGISTRATION)</th>
@@ -47,14 +48,14 @@ const FleetTable = ({ aircraft, onView, onEdit }) => {
             </td>
             <td>{ac.lastInspection}</td>
             <td>
-              <div className="action-icons">
+              <div className={styles["action-icons"]}>
                 <FiEye
-                  className="action-icon"
+                  className={styles["action-icon"]}
                   onClick={() => onView(ac)}
                   title="Visualizar"
                 />
                 <FiEdit
-                  className="action-icon"
+                  className={styles["action-icon"]}
                   onClick={() => onEdit(ac)}
                   title="Editar"
                 />

@@ -1,0 +1,74 @@
+﻿.fleet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 24px 0 20px 0;
+}
+
+.fleet-title h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #0f2b3b;
+}
+
+.fleet-title p {
+  color: #5d738c;
+  font-size: 0.8rem;
+}
+
+.filter-area {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.filter-input {
+  padding: 10px 16px;
+  border-radius: 40px;
+  border: 1px solid #cbd5e1;
+  width: 260px;
+  background: white;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.filter-input:focus {
+  outline: none;
+  border-color: #2c7da0;
+  box-shadow: 0 0 0 3px rgba(44, 125, 160, 0.1);
+}
+
+.btn-primary {
+  background: #0f5b7a;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 40px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: #0a425a;
+}
+
+.two-columns {
+  display: flex;
+  gap: 28px;
+  margin-top: 8px;
+}
+
+.table-container {
+  flex: 2;
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  border: 1px solid #edf2f7;
+  overflow-x: auto;
+}

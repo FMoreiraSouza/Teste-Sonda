@@ -1,6 +1,7 @@
 ﻿import FleetTable from "./FleetTable";
 import Pagination from "../../../components/common/Pagination";
 import { FiPlus } from "react-icons/fi";
+import styles from "./Fleet.module.css";
 
 const Fleet = ({
   paginatedData,
@@ -20,30 +21,30 @@ const Fleet = ({
 
   return (
     <>
-      <div className="fleet-header">
-        <div className="fleet-title">
+      <div className={styles["fleet-header"]}>
+        <div className={styles["fleet-title"]}>
           <h2>FLEET CONTROL</h2>
           <p>
             Real-time status and operational lifecycle management for your
             active fleet.
           </p>
         </div>
-        <div className="filter-area">
+        <div className={styles["filter-area"]}>
           <input
             type="text"
-            className="filter-input"
+            className={styles["filter-input"]}
             placeholder="Filtrar por prefixo ou modelo..."
             value={searchTerm}
             onChange={onSearchChange}
           />
-          <button className="btn-primary" onClick={onCreate}>
+          <button className={styles["btn-primary"]} onClick={onCreate}>
             <FiPlus /> CRIAR NOVA AERONAVE
           </button>
         </div>
       </div>
 
-      <div className="two-columns">
-        <div className="table-container">
+      <div className={styles["two-columns"]}>
+        <div className={styles["table-container"]}>
           <FleetTable
             aircraft={paginatedData}
             onView={onView}

@@ -1,0 +1,40 @@
+﻿.top-header {
+  background: white;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.breadcrumb {
+  font-size: 0.85rem;
+  color: #5a6e85;
+}
+
+.breadcrumb span:first-child {
+  color: #1e4a62;
+  font-weight: 600;
+}
+
+.dashboard-wrapper {
+  padding: 28px 32px;
+  flex: 1;
+}
+
+.app-footer {
+  margin-top: 40px;
+  border-top: 1px solid #e2edf2;
+  padding: 20px 32px 24px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: #6c86a3;
+  background: white;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+}

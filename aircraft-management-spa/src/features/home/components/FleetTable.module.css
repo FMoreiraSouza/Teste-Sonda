@@ -1,0 +1,63 @@
+﻿.fleet-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.fleet-table th {
+  text-align: left;
+  padding: 14px 8px 12px 0;
+  font-weight: 600;
+  color: #4a627a;
+  border-bottom: 1px solid #e2edf2;
+  font-size: 0.75rem;
+}
+
+.fleet-table td {
+  padding: 14px 8px 14px 0;
+  border-bottom: 1px solid #eff3f8;
+  font-size: 0.85rem;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.active {
+  background: #2ba150;
+  box-shadow: 0 0 0 2px #bef5cf;
+}
+
+.maintenance {
+  background: #e67e22;
+  box-shadow: 0 0 0 2px #ffe0bf;
+}
+
+.grounded {
+  background: #e53e3e;
+  box-shadow: 0 0 0 2px #ffdbdb;
+}
+
+.action-icons {
+  display: flex;
+  gap: 12px;
+}
+
+.action-icon {
+  cursor: pointer;
+  color: #6c86a3;
+  transition: color 0.2s;
+  font-size: 1.1rem;
+}
+
+.action-icon:hover {
+  color: #0f5b7a;
+}
