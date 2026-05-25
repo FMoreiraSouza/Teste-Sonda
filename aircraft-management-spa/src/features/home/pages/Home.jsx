@@ -1,6 +1,6 @@
-﻿import { useFleetData } from "../features/fleet/hooks/useFleetData";
-import FleetStats from "../features/fleet/components/FleetStats";
-import Fleet from "../features/fleet/components/Fleet";
+﻿import FleetStats from "../../home/components/FleetStats";
+import Fleet from "../../home/components/Fleet";
+import { useFleetData } from "../hooks/useFleetData";
 
 const Home = ({ onToast }) => {
   const {
