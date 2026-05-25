@@ -1,7 +1,15 @@
-﻿import { MdFlightTakeoff, MdBarChart, MdLogout } from "react-icons/md";
+﻿import { useNavigate } from "react-router-dom";
+import { MdFlightTakeoff, MdBarChart, MdLogout } from "react-icons/md";
 import styles from "./Sidebar.module.css";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
     <div className={styles.sidebar}>
       <div className={styles["logo-area"]}>
@@ -17,7 +25,7 @@ const Sidebar = () => {
         </div>
       </div>
       <div className={styles["sidebar-footer"]}>
-        <div className={styles["sidebar-footer-item"]}>
+        <div className={styles["sidebar-footer-item"]} onClick={handleLogout}>
           <MdLogout /> Sign Out
         </div>
       </div>

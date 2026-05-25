@@ -1,4 +1,4 @@
-﻿import api from "./api";
+﻿import api from "./client/api";
 
 export const fetchAircrafts = async () => {
   const response = await api.get("/aircrafts");
