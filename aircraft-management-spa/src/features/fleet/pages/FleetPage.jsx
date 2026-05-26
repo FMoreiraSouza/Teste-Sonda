@@ -10,6 +10,7 @@ import {
   updateAircraft,
   deleteAircraft,
 } from "../api/aircraftService";
+import { uploadImage } from "../api/uploadService";
 import styles from "./FleetPage.module.css";
 
 export default function FleetPage({ onToast }) {
@@ -55,6 +56,25 @@ export default function FleetPage({ onToast }) {
   const handleView = (aircraft) => {
     setViewingAircraft(aircraft);
     setViewModalOpen(true);
+  };
+
+  const handleUpload = async (aircraft) => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.onchange = async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      try {
+        await uploadImage(aircraft.id, file);
+        onToast?.(`Imagem enviada com sucesso para ${aircraft.name}`);
+        await refresh();
+      } catch (error) {
+        console.error(error);
+        onToast?.(error.response?.data?.message || "Erro ao enviar imagem");
+      }
+    };
+    input.click();
   };
 
   const handleFormSubmit = async (formData) => {
@@ -136,6 +156,7 @@ export default function FleetPage({ onToast }) {
           onEdit={handleEdit}
           onCreate={handleCreate}
           onDelete={handleDelete}
+          onUpload={handleUpload}
           onOpenFilters={() => setFiltersModalOpen(true)}
         />
       </div>
