@@ -3,6 +3,7 @@ import { useFleetData } from "../features/fleet/hooks/useFleetData";
 import FleetStats from "../features/fleet/components/FleetStats";
 import Fleet from "../features/fleet/components/Fleet";
 import AircraftFormModal from "../features/fleet/components/AircraftFormModal";
+import ViewAircraftModal from "../features/fleet/components/ViewAircraftModal";
 import {
   createAircraft,
   updateAircraft,
@@ -23,10 +24,13 @@ export default function FleetPage({ onToast }) {
     resetPage,
     pageSize,
     refresh,
+    loading,
   } = useFleetData();
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [viewModalOpen, setViewModalOpen] = useState(false);
   const [editingAircraft, setEditingAircraft] = useState(null);
+  const [viewingAircraft, setViewingAircraft] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
   const handleSearch = (e) => {
@@ -44,6 +48,11 @@ export default function FleetPage({ onToast }) {
     setModalOpen(true);
   };
 
+  const handleView = (aircraft) => {
+    setViewingAircraft(aircraft);
+    setViewModalOpen(true);
+  };
+
   const handleFormSubmit = async (formData) => {
     setSubmitting(true);
     try {
@@ -57,26 +66,24 @@ export default function FleetPage({ onToast }) {
         fuelCapacity: parseFloat(formData.fuelCapacity),
         averageConsumption: parseFloat(formData.averageConsumption),
       };
+
       if (editingAircraft) {
         await updateAircraft(editingAircraft.id, payload);
-        onToast(`Aeronave "${formData.name}" atualizada com sucesso!`);
+        onToast?.(`Aeronave "${formData.name}" atualizada com sucesso!`);
       } else {
         await createAircraft(payload);
-        onToast(`Aeronave "${formData.name}" criada com sucesso!`);
+        onToast?.(`Aeronave "${formData.name}" criada com sucesso!`);
       }
+
       await refresh();
       setModalOpen(false);
       setEditingAircraft(null);
     } catch (error) {
       console.error(error);
-      onToast(error.response?.data?.message || "Erro ao salvar aeronave");
+      onToast?.(error.response?.data?.message || "Erro ao salvar aeronave");
     } finally {
       setSubmitting(false);
     }
-  };
-
-  const handleView = (aircraft) => {
-    onToast(`Visualizando ${aircraft.prefix} - ${aircraft.model}`);
   };
 
   const handleDelete = async (aircraft) => {
@@ -87,11 +94,11 @@ export default function FleetPage({ onToast }) {
     ) {
       try {
         await deleteAircraft(aircraft.id);
-        onToast(`Aeronave ${aircraft.name} excluída com sucesso!`);
+        onToast?.(`Aeronave ${aircraft.name} excluída com sucesso!`);
         await refresh();
       } catch (error) {
         console.error(error);
-        onToast(error.response?.data?.message || "Erro ao excluir aeronave");
+        onToast?.(error.response?.data?.message || "Erro ao excluir aeronave");
       }
     }
   };
@@ -103,6 +110,7 @@ export default function FleetPage({ onToast }) {
           <span>FLEET MANAGEMENT</span>
         </div>
       </div>
+
       <div className={styles["dashboard-wrapper"]}>
         <FleetStats stats={stats} />
         <Fleet
@@ -120,6 +128,7 @@ export default function FleetPage({ onToast }) {
           onDelete={handleDelete}
         />
       </div>
+
       <div className={styles["app-footer"]}>
         <div>© 2026 AeroControl. All rights reserved.</div>
         <div className={styles["footer-links"]}>
@@ -128,6 +137,7 @@ export default function FleetPage({ onToast }) {
           <span>Regulatory Compliance</span>
         </div>
       </div>
+
       <AircraftFormModal
         isOpen={modalOpen}
         onClose={() => {
@@ -137,6 +147,15 @@ export default function FleetPage({ onToast }) {
         onSubmit={handleFormSubmit}
         initialData={editingAircraft}
         isSubmitting={submitting}
+      />
+
+      <ViewAircraftModal
+        isOpen={viewModalOpen}
+        onClose={() => {
+          setViewModalOpen(false);
+          setViewingAircraft(null);
+        }}
+        aircraft={viewingAircraft}
       />
     </>
   );
