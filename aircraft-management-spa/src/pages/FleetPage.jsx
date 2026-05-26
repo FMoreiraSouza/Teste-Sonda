@@ -4,6 +4,7 @@ import FleetStats from "../features/fleet/components/FleetStats";
 import Fleet from "../features/fleet/components/Fleet";
 import AircraftFormModal from "../features/fleet/components/AircraftFormModal";
 import ViewAircraftModal from "../features/fleet/components/ViewAircraftModal";
+import AdvancedFiltersModal from "../features/fleet/components/AdvancedFiltersModal";
 import {
   createAircraft,
   updateAircraft,
@@ -24,6 +25,8 @@ export default function FleetPage({ onToast }) {
     resetPage,
     pageSize,
     refresh,
+    performSearch,
+    resetSearch,
     loading,
   } = useFleetData();
 
@@ -32,6 +35,7 @@ export default function FleetPage({ onToast }) {
   const [editingAircraft, setEditingAircraft] = useState(null);
   const [viewingAircraft, setViewingAircraft] = useState(null);
   const [submitting, setSubmitting] = useState(false);
+  const [filtersModalOpen, setFiltersModalOpen] = useState(false);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -66,7 +70,6 @@ export default function FleetPage({ onToast }) {
         fuelCapacity: parseFloat(formData.fuelCapacity),
         averageConsumption: parseFloat(formData.averageConsumption),
       };
-
       if (editingAircraft) {
         await updateAircraft(editingAircraft.id, payload);
         onToast?.(`Aeronave "${formData.name}" atualizada com sucesso!`);
@@ -74,7 +77,6 @@ export default function FleetPage({ onToast }) {
         await createAircraft(payload);
         onToast?.(`Aeronave "${formData.name}" criada com sucesso!`);
       }
-
       await refresh();
       setModalOpen(false);
       setEditingAircraft(null);
@@ -103,6 +105,14 @@ export default function FleetPage({ onToast }) {
     }
   };
 
+  const handleApplyFilters = (filters) => {
+    if (Object.keys(filters).length === 0) {
+      resetSearch();
+    } else {
+      performSearch(filters);
+    }
+  };
+
   return (
     <>
       <div className={styles["top-header"]}>
@@ -126,6 +136,7 @@ export default function FleetPage({ onToast }) {
           onEdit={handleEdit}
           onCreate={handleCreate}
           onDelete={handleDelete}
+          onOpenFilters={() => setFiltersModalOpen(true)}
         />
       </div>
 
@@ -156,6 +167,12 @@ export default function FleetPage({ onToast }) {
           setViewingAircraft(null);
         }}
         aircraft={viewingAircraft}
+      />
+
+      <AdvancedFiltersModal
+        isOpen={filtersModalOpen}
+        onClose={() => setFiltersModalOpen(false)}
+        onApply={handleApplyFilters}
       />
     </>
   );

@@ -5,6 +5,11 @@ export const fetchAircrafts = async () => {
   return response.data;
 };
 
+export const searchAircrafts = async (params) => {
+  const response = await api.get("/aircrafts/search", { params });
+  return response.data;
+};
+
 export const createAircraft = async (aircraftData) => {
   const response = await api.post("/aircrafts", aircraftData);
   return response.data;
