@@ -3,7 +3,6 @@ import Login from "../features/auth/pages/Login";
 import Register from "../features/auth/pages/Register";
 import MainLayout from "../layouts/MainLayout";
 import FleetPage from "../pages/FleetPage";
-import ReportsPage from "../pages/ReportsPage";
 
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -26,17 +25,7 @@ export default function AppRoutes({ onToast }) {
         >
           <Route index element={<FleetPage onToast={onToast} />} />
         </Route>
-        <Route
-          path="/reports"
-          element={
-            <PrivateRoute>
-              <MainLayout />
-            </PrivateRoute>
-          }
-        >
-          <Route index element={<ReportsPage onToast={onToast} />} />
-        </Route>
-        <Route path="/" element={<Navigate to="/fleet" />} />
+        = <Route path="/" element={<Navigate to="/fleet" />} />
       </Routes>
     </BrowserRouter>
   );
