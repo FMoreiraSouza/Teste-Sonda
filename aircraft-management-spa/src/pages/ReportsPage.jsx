@@ -1,25 +1,54 @@
-﻿import styles from "./ReportsPage.module.css";
+﻿import { useState, useEffect } from "react";
+import {
+  getUnsoldCount,
+  getDecadeDistribution,
+  getManufacturerDistribution,
+  getLastWeekAircrafts,
+} from "../features/reports/api/reportsService";
+import styles from "./ReportsPage.module.css";
 
-const mockUnsoldCount = 12;
-const mockDecadeDistribution = {
-  1990: 5,
-  2000: 8,
-  2010: 15,
-  2020: 10,
-};
-const mockManufacturerDistribution = {
-  Boeing: 12,
-  Airbus: 10,
-  Embraer: 8,
-  Cessna: 4,
-};
-const mockLastWeekAircrafts = [
-  { id: 1, name: "Boeing 737-800", brand: "Boeing", createdAt: "2026-05-20" },
-  { id: 2, name: "Airbus A320", brand: "Airbus", createdAt: "2026-05-21" },
-  { id: 3, name: "Embraer E195-E2", brand: "Embraer", createdAt: "2026-05-22" },
-];
+export default function ReportsPage({ onToast }) {
+  const [unsoldCount, setUnsoldCount] = useState(null);
+  const [decadeData, setDecadeData] = useState({});
+  const [manufacturerData, setManufacturerData] = useState({});
+  const [lastWeek, setLastWeek] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-export default function ReportsPage() {
+  useEffect(() => {
+    const fetchReports = async () => {
+      try {
+        setLoading(true);
+        const [unsold, decade, manufacturer, lastWeekData] = await Promise.all([
+          getUnsoldCount(),
+          getDecadeDistribution(),
+          getManufacturerDistribution(),
+          getLastWeekAircrafts(),
+        ]);
+        setUnsoldCount(unsold);
+        setDecadeData(decade);
+        setManufacturerData(manufacturer);
+        setLastWeek(lastWeekData);
+      } catch (error) {
+        console.error("Erro ao carregar relatórios:", error);
+        onToast?.("Erro ao carregar dados dos relatórios");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchReports();
+  }, [onToast]);
+
+  if (loading) {
+    return (
+      <div
+        className={styles["dashboard-wrapper"]}
+        style={{ textAlign: "center", padding: "2rem" }}
+      >
+        Carregando relatórios...
+      </div>
+    );
+  }
+
   return (
     <>
       <div className={styles["top-header"]}>
@@ -36,14 +65,14 @@ export default function ReportsPage() {
 
         <div className={styles.unsoldCard}>
           <h3>Quantidade de aeronaves não vendidas</h3>
-          <div className={styles.unsoldNumber}>{mockUnsoldCount}</div>
+          <div className={styles.unsoldNumber}>{unsoldCount ?? "-"}</div>
         </div>
 
         <div className={styles.grid2cols}>
           <div className={styles.card}>
             <h3>Distribuição por década</h3>
             <div className={styles.barList}>
-              {Object.entries(mockDecadeDistribution).map(([decade, count]) => (
+              {Object.entries(decadeData).map(([decade, count]) => (
                 <div key={decade} className={styles.barItem}>
                   <span className={styles.barLabel}>{decade}s</span>
                   <div className={styles.barWrapper}>
@@ -61,38 +90,40 @@ export default function ReportsPage() {
           <div className={styles.card}>
             <h3>Distribuição por fabricante</h3>
             <div className={styles.manufacturerList}>
-              {Object.entries(mockManufacturerDistribution).map(
-                ([name, count]) => (
-                  <div key={name} className={styles.manufacturerRow}>
-                    <span>{name}</span>
-                    <span className={styles.badge}>{count}</span>
-                  </div>
-                ),
-              )}
+              {Object.entries(manufacturerData).map(([name, count]) => (
+                <div key={name} className={styles.manufacturerRow}>
+                  <span>{name}</span>
+                  <span className={styles.badge}>{count}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
         <div className={styles.card}>
           <h3>Aeronaves cadastradas na última semana</h3>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>Nome</th>
-                <th>Marca</th>
-                <th>Data de criação</th>
-              </tr>
-            </thead>
-            <tbody>
-              {mockLastWeekAircrafts.map((ac) => (
-                <tr key={ac.id}>
-                  <td>{ac.name}</td>
-                  <td>{ac.brand}</td>
-                  <td>{ac.createdAt}</td>
+          {lastWeek.length === 0 ? (
+            <p>Nenhuma aeronave cadastrada na última semana.</p>
+          ) : (
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Marca</th>
+                  <th>Data de criação</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {lastWeek.map((ac) => (
+                  <tr key={ac.id}>
+                    <td>{ac.name}</td>
+                    <td>{ac.brand}</td>
+                    <td>{new Date(ac.createdAt).toLocaleDateString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
 
