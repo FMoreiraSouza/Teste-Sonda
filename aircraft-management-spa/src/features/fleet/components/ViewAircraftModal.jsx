@@ -45,6 +45,30 @@ export default function ViewAircraftModal({ isOpen, onClose, aircraft }) {
               ? new Date(aircraft.createdAt).toLocaleString()
               : "-"}
           </div>
+          <div className={styles.detailItem}>
+            <strong>Imagem:</strong>
+            {aircraft.imageUrl ? (
+              <a
+                href={aircraft.imageUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={aircraft.imageUrl}
+                  alt={aircraft.name}
+                  style={{
+                    maxWidth: "200px",
+                    maxHeight: "150px",
+                    display: "block",
+                    marginTop: "8px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </a>
+            ) : (
+              " Nenhuma imagem"
+            )}
+          </div>
         </div>
         <div className={styles.modalActions}>
           <button onClick={onClose}>Fechar</button>

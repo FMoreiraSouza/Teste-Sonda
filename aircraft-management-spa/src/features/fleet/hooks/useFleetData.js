@@ -23,6 +23,7 @@ export const useFleetData = () => {
       range: ac.range,
       rangeCategory: ac.rangeCategory,
       createdAt: ac.createdAt,
+      imageUrl: ac.imageUrl,
       prefix: ac.icaoCode || ac.name?.substring(0, 6).toUpperCase() || "N/A",
       model: ac.name,
       status: ac.sold ? "Sold" : "Active",
