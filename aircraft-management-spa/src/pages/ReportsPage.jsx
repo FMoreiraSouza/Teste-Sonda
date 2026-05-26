@@ -21,62 +21,89 @@ const mockLastWeekAircrafts = [
 
 export default function ReportsPage() {
   return (
-    <div className={styles.reportsContainer}>
-      <div className={styles.header}>
-        <h1>Relatórios de Frota</h1>
-        <p>Performance analítica detalhada dos ativos aéreos globais.</p>
-      </div>
-      <div className={styles.card}>
-        <h3>Quantidade de aeronaves não vendidas</h3>
-        <div className={styles.unsoldNumber}>{mockUnsoldCount}</div>
-      </div>
-      <div className={styles.grid2cols}>
-        <div className={styles.card}>
-          <h3>Distribuição por década</h3>
-          {Object.entries(mockDecadeDistribution).map(([decade, count]) => (
-            <div key={decade} className={styles.barItem}>
-              <span>{decade}s</span>
-              <div className={styles.barContainer}>
-                <div
-                  className={styles.bar}
-                  style={{ width: `${(count / 20) * 100}%` }}
-                ></div>
-                <span>{count}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className={styles.card}>
-          <h3>Distribuição por fabricante</h3>
-          {Object.entries(mockManufacturerDistribution).map(([name, count]) => (
-            <div key={name} className={styles.manufacturerItem}>
-              <span>{name}</span>
-              <span className={styles.badge}>{count}</span>
-            </div>
-          ))}
+    <>
+      <div className={styles["top-header"]}>
+        <div className={styles.breadcrumb}>
+          <span>RELATÓRIOS DE FROTA</span>
         </div>
       </div>
-      <div className={styles.card}>
-        <h3>Aeronaves cadastradas na última semana</h3>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Marca</th>
-              <th>Data de criação</th>
-            </tr>
-          </thead>
-          <tbody>
-            {mockLastWeekAircrafts.map((ac) => (
-              <tr key={ac.id}>
-                <td>{ac.name}</td>
-                <td>{ac.brand}</td>
-                <td>{ac.createdAt}</td>
+
+      <div className={styles["dashboard-wrapper"]}>
+        <div className={styles.header}>
+          <h1>Dashboards & Indicadores</h1>
+          <p>Performance analítica detalhada dos ativos aéreos globais.</p>
+        </div>
+
+        <div className={styles.unsoldCard}>
+          <h3>Quantidade de aeronaves não vendidas</h3>
+          <div className={styles.unsoldNumber}>{mockUnsoldCount}</div>
+        </div>
+
+        <div className={styles.grid2cols}>
+          <div className={styles.card}>
+            <h3>Distribuição por década</h3>
+            <div className={styles.barList}>
+              {Object.entries(mockDecadeDistribution).map(([decade, count]) => (
+                <div key={decade} className={styles.barItem}>
+                  <span className={styles.barLabel}>{decade}s</span>
+                  <div className={styles.barWrapper}>
+                    <div
+                      className={styles.bar}
+                      style={{ width: `${(count / 20) * 100}%` }}
+                    ></div>
+                    <span className={styles.barValue}>{count}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className={styles.card}>
+            <h3>Distribuição por fabricante</h3>
+            <div className={styles.manufacturerList}>
+              {Object.entries(mockManufacturerDistribution).map(
+                ([name, count]) => (
+                  <div key={name} className={styles.manufacturerRow}>
+                    <span>{name}</span>
+                    <span className={styles.badge}>{count}</span>
+                  </div>
+                ),
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.card}>
+          <h3>Aeronaves cadastradas na última semana</h3>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Marca</th>
+                <th>Data de criação</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {mockLastWeekAircrafts.map((ac) => (
+                <tr key={ac.id}>
+                  <td>{ac.name}</td>
+                  <td>{ac.brand}</td>
+                  <td>{ac.createdAt}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+
+      <div className={styles["app-footer"]}>
+        <div>© 2026 AeroControl. All rights reserved.</div>
+        <div className={styles["footer-links"]}>
+          <span>Privacy Policy</span>
+          <span>Terms of Use</span>
+          <span>Regulatory Compliance</span>
+        </div>
+      </div>
+    </>
   );
 }
