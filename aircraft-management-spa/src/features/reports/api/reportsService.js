@@ -1,4 +1,4 @@
-﻿import api from "../../../services/client/api";
+﻿import api from "../../../services/rest-client/api";
 
 export const getUnsoldCount = async () => {
   const response = await api.get("/aircrafts/reports/unsold-count");

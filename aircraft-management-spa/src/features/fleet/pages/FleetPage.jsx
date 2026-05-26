@@ -1,15 +1,15 @@
 ﻿import { useState } from "react";
-import { useFleetData } from "../features/fleet/hooks/useFleetData";
-import FleetStats from "../features/fleet/components/FleetStats";
-import Fleet from "../features/fleet/components/Fleet";
-import AircraftFormModal from "../features/fleet/components/AircraftFormModal";
-import ViewAircraftModal from "../features/fleet/components/ViewAircraftModal";
-import AdvancedFiltersModal from "../features/fleet/components/AdvancedFiltersModal";
+import { useFleetData } from "../hooks/useFleetData";
+import FleetStats from "../components/FleetStats";
+import Fleet from "../components/Fleet";
+import AircraftFormModal from "../components/AircraftFormModal";
+import ViewAircraftModal from "../components/ViewAircraftModal";
+import AdvancedFiltersModal from "../components/AdvancedFiltersModal";
 import {
   createAircraft,
   updateAircraft,
   deleteAircraft,
-} from "../features/fleet/api/aircraftService";
+} from "../api/aircraftService";
 import styles from "./FleetPage.module.css";
 
 export default function FleetPage({ onToast }) {

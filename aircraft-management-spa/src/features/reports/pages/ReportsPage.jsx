@@ -4,7 +4,7 @@ import {
   getDecadeDistribution,
   getManufacturerDistribution,
   getLastWeekAircrafts,
-} from "../features/reports/api/reportsService";
+} from "../api/reportsService";
 import styles from "./ReportsPage.module.css";
 
 export default function ReportsPage({ onToast }) {

@@ -1,5 +1,5 @@
 ﻿import { Outlet, useNavigate } from "react-router-dom";
-import Sidebar from "../components/layout/Sidebar";
+import Sidebar from "./Sidebar";
 
 export default function MainLayout() {
   const navigate = useNavigate();
