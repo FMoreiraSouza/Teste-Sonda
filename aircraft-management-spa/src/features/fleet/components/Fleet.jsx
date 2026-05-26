@@ -1,6 +1,6 @@
 ﻿import FleetTable from "./FleetTable";
 import Pagination from "../../../components/common/Pagination";
-import { FiPlus } from "react-icons/fi";
+import { FiPlus, FiFilter } from "react-icons/fi";
 import styles from "./Fleet.module.css";
 
 const Fleet = ({
@@ -16,6 +16,7 @@ const Fleet = ({
   onEdit,
   onCreate,
   onDelete,
+  onOpenFilters,
 }) => {
   const start = (currentPage - 1) * pageSize + 1;
   const end = Math.min(currentPage * pageSize, filteredCount);
@@ -38,6 +39,9 @@ const Fleet = ({
             value={searchTerm}
             onChange={onSearchChange}
           />
+          <button className={styles["filter-btn"]} onClick={onOpenFilters}>
+            <FiFilter /> Filtros
+          </button>
           <button className={styles["btn-primary"]} onClick={onCreate}>
             <FiPlus /> CRIAR NOVA AERONAVE
           </button>

@@ -50,6 +50,7 @@
   font-weight: 500;
   transition: all 0.2s ease;
   color: #cbd5e1;
+  text-decoration: none;
 }
 
 .nav-item.active {

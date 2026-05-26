@@ -1,15 +1,8 @@
-﻿import { useNavigate } from "react-router-dom";
-import { MdFlightTakeoff, MdBarChart, MdLogout } from "react-icons/md";
+﻿import { NavLink } from "react-router-dom";
+import { MdFlightTakeoff, MdLogout } from "react-icons/md";
 import styles from "./Sidebar.module.css";
 
-const Sidebar = () => {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
-
+const Sidebar = ({ onLogout }) => {
   return (
     <div className={styles.sidebar}>
       <div className={styles["logo-area"]}>
@@ -17,15 +10,17 @@ const Sidebar = () => {
         <div className={styles["logo-sub"]}>Fleet Operations</div>
       </div>
       <div className={styles["nav-menu"]}>
-        <div className={`${styles["nav-item"]} ${styles.active}`}>
+        <NavLink
+          to="/fleet"
+          className={({ isActive }) =>
+            `${styles["nav-item"]} ${isActive ? styles.active : ""}`
+          }
+        >
           <MdFlightTakeoff /> Fleet Management
-        </div>
-        <div className={styles["nav-item"]}>
-          <MdBarChart /> Reports
-        </div>
+        </NavLink>
       </div>
       <div className={styles["sidebar-footer"]}>
-        <div className={styles["sidebar-footer-item"]} onClick={handleLogout}>
+        <div className={styles["sidebar-footer-item"]} onClick={onLogout}>
           <MdLogout /> Sign Out
         </div>
       </div>

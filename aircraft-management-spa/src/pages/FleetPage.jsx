@@ -1,17 +1,18 @@
 ﻿import { useState } from "react";
-import FleetStats from "../../home/components/FleetStats";
-import Fleet from "../../home/components/Fleet";
-import AircraftFormModal from "../../home/components/AircraftFormModal";
-import ViewAircraftModal from "../../home/components/ViewAircraftModal";
-import { useFleetData } from "../hooks/useFleetData";
+import { useFleetData } from "../features/fleet/hooks/useFleetData";
+import FleetStats from "../features/fleet/components/FleetStats";
+import Fleet from "../features/fleet/components/Fleet";
+import AircraftFormModal from "../features/fleet/components/AircraftFormModal";
+import ViewAircraftModal from "../features/fleet/components/ViewAircraftModal";
+import AdvancedFiltersModal from "../features/fleet/components/AdvancedFiltersModal";
 import {
   createAircraft,
-  deleteAircraft,
   updateAircraft,
-} from "../../../services/aircraftService";
-import styles from "./Home.module.css";
+  deleteAircraft,
+} from "../features/fleet/api/aircraftService";
+import styles from "./FleetPage.module.css";
 
-const Home = ({ onToast }) => {
+export default function FleetPage({ onToast }) {
   const {
     searchTerm,
     setSearchTerm,
@@ -24,14 +25,17 @@ const Home = ({ onToast }) => {
     resetPage,
     pageSize,
     refresh,
+    performSearch,
+    resetSearch,
+    loading,
   } = useFleetData();
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [editingAircraft, setEditingAircraft] = useState(null);
-  const [submitting, setSubmitting] = useState(false);
-
   const [viewModalOpen, setViewModalOpen] = useState(false);
+  const [editingAircraft, setEditingAircraft] = useState(null);
   const [viewingAircraft, setViewingAircraft] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [filtersModalOpen, setFiltersModalOpen] = useState(false);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -48,50 +52,40 @@ const Home = ({ onToast }) => {
     setModalOpen(true);
   };
 
+  const handleView = (aircraft) => {
+    setViewingAircraft(aircraft);
+    setViewModalOpen(true);
+  };
+
   const handleFormSubmit = async (formData) => {
     setSubmitting(true);
     try {
+      const payload = {
+        name: formData.name,
+        brand: formData.brand,
+        year: parseInt(formData.year),
+        description: formData.description,
+        sold: formData.sold,
+        icaoCode: formData.icaoCode,
+        fuelCapacity: parseFloat(formData.fuelCapacity),
+        averageConsumption: parseFloat(formData.averageConsumption),
+      };
       if (editingAircraft) {
-        const payload = {
-          name: formData.name,
-          brand: formData.brand,
-          year: parseInt(formData.year),
-          description: formData.description,
-          sold: formData.sold,
-          icaoCode: formData.icaoCode,
-          fuelCapacity: parseFloat(formData.fuelCapacity),
-          averageConsumption: parseFloat(formData.averageConsumption),
-        };
         await updateAircraft(editingAircraft.id, payload);
-        onToast(`Aeronave "${formData.name}" atualizada com sucesso!`);
+        onToast?.(`Aeronave "${formData.name}" atualizada com sucesso!`);
       } else {
-        const payload = {
-          name: formData.name,
-          brand: formData.brand,
-          year: parseInt(formData.year),
-          description: formData.description,
-          sold: formData.sold,
-          icaoCode: formData.icaoCode,
-          fuelCapacity: parseFloat(formData.fuelCapacity),
-          averageConsumption: parseFloat(formData.averageConsumption),
-        };
         await createAircraft(payload);
-        onToast(`Aeronave "${formData.name}" criada com sucesso!`);
+        onToast?.(`Aeronave "${formData.name}" criada com sucesso!`);
       }
       await refresh();
       setModalOpen(false);
       setEditingAircraft(null);
     } catch (error) {
       console.error(error);
-      onToast(error.response?.data?.message || "Erro ao salvar aeronave");
+      onToast?.(error.response?.data?.message || "Erro ao salvar aeronave");
     } finally {
       setSubmitting(false);
     }
-  };
-
-  const handleView = (aircraft) => {
-    setViewingAircraft(aircraft);
-    setViewModalOpen(true);
   };
 
   const handleDelete = async (aircraft) => {
@@ -102,12 +96,20 @@ const Home = ({ onToast }) => {
     ) {
       try {
         await deleteAircraft(aircraft.id);
-        onToast(`Aeronave ${aircraft.name} excluída com sucesso!`);
+        onToast?.(`Aeronave ${aircraft.name} excluída com sucesso!`);
         await refresh();
       } catch (error) {
         console.error(error);
-        onToast(error.response?.data?.message || "Erro ao excluir aeronave");
+        onToast?.(error.response?.data?.message || "Erro ao excluir aeronave");
       }
+    }
+  };
+
+  const handleApplyFilters = (filters) => {
+    if (Object.keys(filters).length === 0) {
+      resetSearch();
+    } else {
+      performSearch(filters);
     }
   };
 
@@ -121,7 +123,6 @@ const Home = ({ onToast }) => {
 
       <div className={styles["dashboard-wrapper"]}>
         <FleetStats stats={stats} />
-
         <Fleet
           paginatedData={paginatedData}
           filteredCount={filteredCount}
@@ -135,6 +136,7 @@ const Home = ({ onToast }) => {
           onEdit={handleEdit}
           onCreate={handleCreate}
           onDelete={handleDelete}
+          onOpenFilters={() => setFiltersModalOpen(true)}
         />
       </div>
 
@@ -166,8 +168,12 @@ const Home = ({ onToast }) => {
         }}
         aircraft={viewingAircraft}
       />
+
+      <AdvancedFiltersModal
+        isOpen={filtersModalOpen}
+        onClose={() => setFiltersModalOpen(false)}
+        onApply={handleApplyFilters}
+      />
     </>
   );
-};
-
-export default Home;
+}

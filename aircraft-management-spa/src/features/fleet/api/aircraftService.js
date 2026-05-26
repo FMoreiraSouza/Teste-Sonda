@@ -1,7 +1,12 @@
-﻿import api from "./client/api";
+﻿import api from "../../../services/client/api";
 
 export const fetchAircrafts = async () => {
   const response = await api.get("/aircrafts");
+  return response.data;
+};
+
+export const searchAircrafts = async (params) => {
+  const response = await api.get("/aircrafts/search", { params });
   return response.data;
 };
 
