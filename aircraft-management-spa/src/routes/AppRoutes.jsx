@@ -1,9 +1,9 @@
 ﻿import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "../features/auth/pages/Login";
 import Register from "../features/auth/pages/Register";
-import MainLayout from "../layouts/MainLayout";
-import FleetPage from "../pages/FleetPage";
-import ReportsPage from "../pages/ReportsPage";
+import MainLayout from "../components/layout/MainLayout";
+import FleetPage from "../features/fleet/pages/FleetPage";
+import ReportsPage from "../features/reports/pages/ReportsPage";
 
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem("token");

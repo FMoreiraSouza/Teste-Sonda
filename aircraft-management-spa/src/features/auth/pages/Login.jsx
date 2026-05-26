@@ -1,7 +1,7 @@
 ﻿import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
-import { login } from "../../../services/authService";
+import { login } from "../api/authService";
 
 export default function Login() {
   const [username, setUsername] = useState("");
