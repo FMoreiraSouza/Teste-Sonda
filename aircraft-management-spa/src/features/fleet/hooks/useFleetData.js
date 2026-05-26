@@ -1,5 +1,5 @@
 ﻿import { useState, useEffect, useMemo } from "react";
-import { fetchAircrafts } from "../../../services/aircraftService";
+import { fetchAircrafts } from "../api/aircraftService";
 
 export const useFleetData = () => {
   const [aircraft, setAircraft] = useState([]);

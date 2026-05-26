@@ -1,0 +1,98 @@
+﻿.reportsContainer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 2px solid #e2edf2;
+}
+
+.reportsContainer h2 {
+  margin-bottom: 24px;
+  color: #0b2b40;
+  font-size: 1.5rem;
+}
+
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid #edf2f7;
+}
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #0f2b3b;
+}
+
+.unsoldNumber {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #0f5b7a;
+  text-align: center;
+}
+
+.grid2cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.barItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.barItem span:first-child {
+  width: 60px;
+  font-weight: 500;
+}
+
+.barContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bar {
+  background-color: #0f5b7a;
+  height: 24px;
+  border-radius: 12px;
+  transition: width 0.3s;
+}
+
+.manufacturerItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #e2edf2;
+}
+
+.badge {
+  background: #e2e8f0;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #e2edf2;
+}
+
+.table th {
+  font-weight: 600;
+  color: #4a627a;
+}

@@ -1,19 +1,21 @@
 ﻿import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "../features/auth/pages/Login";
-import MainLayout from "../layouts/MainLayout";
-import Home from "../features/home/pages/Home";
 import Register from "../features/auth/pages/Register";
+import MainLayout from "../layouts/MainLayout";
+import FleetPage from "../pages/FleetPage";
+import ReportsPage from "../pages/ReportsPage";
 
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem("token");
   return token ? children : <Navigate to="/login" />;
 };
 
-export default function AppRoutes() {
+export default function AppRoutes({ onToast }) {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route
           path="/fleet"
           element={
@@ -22,10 +24,19 @@ export default function AppRoutes() {
             </PrivateRoute>
           }
         >
-          <Route index element={<Home />} />
+          <Route index element={<FleetPage onToast={onToast} />} />
         </Route>
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/register" element={<Register />} />
+        <Route
+          path="/reports"
+          element={
+            <PrivateRoute>
+              <MainLayout />
+            </PrivateRoute>
+          }
+        >
+          <Route index element={<ReportsPage onToast={onToast} />} />
+        </Route>
+        <Route path="/" element={<Navigate to="/fleet" />} />
       </Routes>
     </BrowserRouter>
   );
