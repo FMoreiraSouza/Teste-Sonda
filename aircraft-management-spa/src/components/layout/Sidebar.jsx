@@ -1,5 +1,5 @@
 ﻿import { NavLink } from "react-router-dom";
-import { MdFlightTakeoff, MdLogout } from "react-icons/md";
+import { MdFlightTakeoff, MdBarChart, MdLogout } from "react-icons/md";
 import styles from "./Sidebar.module.css";
 
 const Sidebar = ({ onLogout }) => {
@@ -17,6 +17,14 @@ const Sidebar = ({ onLogout }) => {
           }
         >
           <MdFlightTakeoff /> Fleet Management
+        </NavLink>
+        <NavLink
+          to="/reports"
+          className={({ isActive }) =>
+            `${styles["nav-item"]} ${isActive ? styles.active : ""}`
+          }
+        >
+          <MdBarChart /> Reports
         </NavLink>
       </div>
       <div className={styles["sidebar-footer"]}>
