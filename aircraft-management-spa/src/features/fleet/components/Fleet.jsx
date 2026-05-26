@@ -15,6 +15,7 @@ const Fleet = ({
   onView,
   onEdit,
   onCreate,
+  onUpload,
   onDelete,
   onOpenFilters,
 }) => {
@@ -53,6 +54,7 @@ const Fleet = ({
           aircraft={paginatedData}
           onView={onView}
           onEdit={onEdit}
+          onUpload={onUpload}
           onDelete={onDelete}
         />
         {filteredCount > 0 && (

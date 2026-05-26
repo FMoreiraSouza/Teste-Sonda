@@ -1,4 +1,4 @@
-﻿import { FiEye, FiEdit, FiTrash2 } from "react-icons/fi";
+﻿import { FiEye, FiEdit, FiTrash2, FiCamera } from "react-icons/fi";
 import styles from "./FleetTable.module.css";
 
 const StatusBadge = ({ status }) => {
@@ -16,7 +16,7 @@ const StatusBadge = ({ status }) => {
   );
 };
 
-const FleetTable = ({ aircraft = [], onView, onEdit, onDelete }) => {
+const FleetTable = ({ aircraft = [], onView, onEdit, onUpload, onDelete }) => {
   if (!aircraft || aircraft.length === 0) {
     return (
       <div style={{ padding: "2rem", textAlign: "center" }}>
@@ -51,6 +51,7 @@ const FleetTable = ({ aircraft = [], onView, onEdit, onDelete }) => {
               <div className={styles["action-icons"]}>
                 <FiEye onClick={() => onView(ac)} title="Visualizar" />
                 <FiEdit onClick={() => onEdit(ac)} title="Editar" />
+                <FiCamera onClick={() => onUpload(ac)} title="Enviar imagem" />
                 <FiTrash2 onClick={() => onDelete(ac)} title="Excluir" />
               </div>
             </td>
