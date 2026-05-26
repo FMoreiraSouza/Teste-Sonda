@@ -13,11 +13,6 @@ const FleetStats = ({ stats }) => {
         <div className={styles["stat-number"]}>{stats.active}</div>
         <div className={styles["stat-sub"]}>Operacional</div>
       </div>
-      <div className={styles["stat-card"]}>
-        <div className={styles["stat-title"]}>MAINTENANCE</div>
-        <div className={styles["stat-number"]}>{stats.maintenance}</div>
-        <div className={styles["stat-sub"]}>Em manutenção</div>
-      </div>
     </div>
   );
 };

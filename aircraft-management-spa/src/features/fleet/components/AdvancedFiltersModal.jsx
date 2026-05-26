@@ -87,9 +87,6 @@ export default function AdvancedFiltersModal({ isOpen, onClose, onApply }) {
             />
           </div>
           <div className={styles.modalActions}>
-            <button type="button" onClick={handleClear}>
-              Limpar filtros
-            </button>
             <button type="submit">Aplicar</button>
             <button type="button" onClick={onClose}>
               Cancelar
