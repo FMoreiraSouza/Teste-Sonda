@@ -41,3 +41,19 @@
   color: #6c86a3;
   margin-top: 8px;
 }
+
+/* Telas muito pequenas */
+@media (max-width: 480px) {
+  .stat-card {
+    padding: 12px 16px;
+  }
+  .stat-number {
+    font-size: 2rem;
+  }
+  .stat-title {
+    font-size: 0.7rem;
+  }
+  .stat-sub {
+    font-size: 0.65rem;
+  }
+}

@@ -87,7 +87,6 @@
   border: 1px solid #edf2f7;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
   .fleet-header {
     flex-direction: column;
@@ -106,5 +105,23 @@
   }
   .table-container {
     padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fleet-header {
+    margin: 16px 0 12px 0;
+  }
+  .fleet-title h2 {
+    font-size: 1.2rem;
+  }
+  .fleet-title p {
+    font-size: 0.7rem;
+  }
+  .filter-input,
+  .filter-btn,
+  .btn-primary {
+    padding: 8px 12px;
+    font-size: 0.75rem;
   }
 }

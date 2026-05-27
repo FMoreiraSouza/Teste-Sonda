@@ -67,3 +67,19 @@
     gap: 24px;
   }
 }
+
+@media (max-width: 480px) {
+  .dashboard-wrapper {
+    padding: 12px 8px;
+  }
+  .top-header {
+    padding: 8px 12px;
+  }
+  .app-footer {
+    padding: 12px;
+    font-size: 0.6rem;
+  }
+  .footer-links {
+    gap: 12px;
+  }
+}
