@@ -26,10 +26,10 @@ const Fleet = ({
     <>
       <div className={styles["fleet-header"]}>
         <div className={styles["fleet-title"]}>
-          <h2>FLEET CONTROL</h2>
+          <h2>CONTROLE DE FROTA</h2>
           <p>
-            Real-time status and operational lifecycle management for your
-            active fleet.
+            Gerenciamento do ciclo de vida e status em tempo real da sua frota
+            ativa.
           </p>
         </div>
         <div className={styles["filter-area"]}>

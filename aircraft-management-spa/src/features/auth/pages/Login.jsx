@@ -37,7 +37,7 @@ export default function Login() {
       <div className={styles.loginCard}>
         <div className={styles.logoArea}>
           <h1>AeroControl</h1>
-          <p>Mission Control & Fleet Operations</p>
+          <p>Operações de Frota & Controle de Missão</p>
         </div>
         <form onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>

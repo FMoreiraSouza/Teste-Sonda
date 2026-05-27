@@ -8,10 +8,15 @@ const StatusBadge = ({ status }) => {
       : status === "Maintenance"
         ? "maintenance"
         : "grounded";
+  let statusText = "";
+  if (status === "Active") statusText = "Ativo";
+  else if (status === "Maintenance") statusText = "Manutenção";
+  else if (status === "Sold") statusText = "Vendido";
+  else statusText = status;
   return (
     <span className={styles["status-badge"]}>
       <span className={`${styles["status-dot"]} ${styles[statusClass]}`}></span>
-      {status}
+      {statusText}
     </span>
   );
 };
@@ -30,25 +35,25 @@ const FleetTable = ({ aircraft = [], onView, onEdit, onUpload, onDelete }) => {
       <table className={styles["fleet-table"]}>
         <thead>
           <tr>
-            <th>PREFIX (REGISTRATION)</th>
-            <th>MODEL</th>
+            <th>PREFIXO (REGISTRO)</th>
+            <th>MODELO</th>
             <th>STATUS</th>
-            <th>LAST INSPECTION</th>
-            <th>ACTIONS</th>
+            <th>ÚLTIMA INSPEÇÃO</th>
+            <th>AÇÕES</th>
           </tr>
         </thead>
         <tbody>
           {aircraft.map((ac) => (
             <tr key={ac.id}>
-              <td data-label="PREFIX (REGISTRATION)">
+              <td data-label="PREFIXO (REGISTRO)">
                 <strong>{ac.prefix}</strong>
               </td>
-              <td data-label="MODEL">{ac.model}</td>
+              <td data-label="MODELO">{ac.model}</td>
               <td data-label="STATUS">
                 <StatusBadge status={ac.status} />
               </td>
-              <td data-label="LAST INSPECTION">{ac.lastInspection}</td>
-              <td data-label="ACTIONS">
+              <td data-label="ÚLTIMA INSPEÇÃO">{ac.lastInspection}</td>
+              <td data-label="AÇÕES">
                 <div className={styles["action-icons"]}>
                   <FiEye onClick={() => onView(ac)} title="Visualizar" />
                   <FiEdit onClick={() => onEdit(ac)} title="Editar" />

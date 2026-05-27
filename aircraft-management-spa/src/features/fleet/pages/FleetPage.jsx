@@ -137,7 +137,7 @@ export default function FleetPage({ onToast }) {
     <>
       <div className={styles["top-header"]}>
         <div className={styles.breadcrumb}>
-          <span>FLEET MANAGEMENT</span>
+          <span>GERENCIAMENTO DE FROTA</span>
         </div>
       </div>
 
@@ -162,11 +162,11 @@ export default function FleetPage({ onToast }) {
       </div>
 
       <div className={styles["app-footer"]}>
-        <div>© 2026 AeroControl. All rights reserved.</div>
+        <div>© 2026 AeroControl. Todos os direitos reservados.</div>
         <div className={styles["footer-links"]}>
-          <span>Privacy Policy</span>
-          <span>Terms of Use</span>
-          <span>Regulatory Compliance</span>
+          <span>Política de Privacidade</span>
+          <span>Termos de Uso</span>
+          <span>Conformidade Regulatória</span>
         </div>
       </div>
 

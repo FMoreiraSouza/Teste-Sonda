@@ -7,7 +7,7 @@ const Sidebar = ({ onLogout }) => {
     <div className={styles.sidebar}>
       <div className={styles["logo-area"]}>
         <div className={styles.logo}>AeroControl</div>
-        <div className={styles["logo-sub"]}>Fleet Operations</div>
+        <div className={styles["logo-sub"]}>Operações de Frota</div>
       </div>
       <div className={styles["nav-menu"]}>
         <NavLink
@@ -16,7 +16,7 @@ const Sidebar = ({ onLogout }) => {
             `${styles["nav-item"]} ${isActive ? styles.active : ""}`
           }
         >
-          <MdFlightTakeoff /> Fleet Management
+          <MdFlightTakeoff /> Gestão de Frota
         </NavLink>
         <NavLink
           to="/reports"
@@ -24,12 +24,12 @@ const Sidebar = ({ onLogout }) => {
             `${styles["nav-item"]} ${isActive ? styles.active : ""}`
           }
         >
-          <MdBarChart /> Reports
+          <MdBarChart /> Relatórios
         </NavLink>
       </div>
       <div className={styles["sidebar-footer"]}>
         <div className={styles["sidebar-footer-item"]} onClick={onLogout}>
-          <MdLogout /> Sign Out
+          <MdLogout /> Sair
         </div>
       </div>
     </div>
