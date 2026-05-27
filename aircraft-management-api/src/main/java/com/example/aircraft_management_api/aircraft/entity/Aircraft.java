@@ -39,17 +39,18 @@ public class Aircraft {
 
     @NotNull
     @Positive
-    private Double fuelCapacity; // liters
+    private Double fuelCapacity;
 
     @NotNull
     @Positive
-    private Double averageConsumption; // km/l
+    private Double averageConsumption;
 
-    private Double range; // calculated = fuelCapacity * averageConsumption
+    private Double range;
 
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(columnDefinition = "TEXT")
     private String imageUrl;
 
     @PrePersist
