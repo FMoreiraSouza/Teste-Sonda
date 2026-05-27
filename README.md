@@ -69,10 +69,9 @@ A comunicação entre frontend e backend é feita através do host localhost:808
    ```bash
    git clone https://github.com/seu-usuario/sonda-aircraft-management.git
    cd sonda-aircraft-management
-2. Configure as variáveis de ambiente (credenciais AWS) no arquivo docker-compose.yml ou crie um arquivo .env na raiz:
+2. Copie o arquivo `.env.example` para `.env` e preencha com suas credenciais reais (AWS, senhas, etc.):
    ```bash
-   AWS_ACCESS_KEY_ID=AKIA...
-   AWS_SECRET_ACCESS_KEY=...   
+   cp .env.example .env   
 3. Execute os containers:
    ```bash
     docker-compose up --build
@@ -80,11 +79,16 @@ A comunicação entre frontend e backend é feita através do host localhost:808
 - Frontend: http://localhost:5173 (porta configurada)
 - Backend Swagger: http://localhost:8080/swagger-ui.html
 
+> **Credenciais padrão** (criadas automaticamente pelo `DataInitializer`):
+- **ADMIN**:
+   - user: `admin`
+   - password: `admin123`
+
 ### Execução manual (sem Docker)
 
 #### Backend
 1. Configure o banco PostgreSQL (crie o banco aircraft_db).
-2. Ajuste o application.properties com suas credenciais de banco e AWS.
+2. Ajuste o application.properties com suas credenciais de banco, AWS e JWT.
 3. Execute:
    ```bash
    cd aircraft-management-api
