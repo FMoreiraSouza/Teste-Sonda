@@ -19,7 +19,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_PROFILES_ACTIVE: s3
       DB_URL: ${DB_URL}
       DB_USER: ${DB_USER}
