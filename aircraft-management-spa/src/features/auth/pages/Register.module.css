@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #0b2b40 0%, #1a4a6f 100%);
+  padding: 16px;
 }
 
 .registerCard {
@@ -46,6 +47,14 @@
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
+  transition: background 0.2s;
+}
+.registerCard button:hover {
+  background: #0a425a;
+}
+.registerCard button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
 }
 
 .error {
@@ -54,12 +63,68 @@
   font-size: 0.85rem;
 }
 
+.success {
+  margin-top: 1rem;
+  color: #2ba150;
+  font-size: 0.85rem;
+}
+
 .loginLink {
   margin-top: 1rem;
 }
-
 .loginLink a {
   color: #0f5b7a;
   text-decoration: none;
   font-size: 0.85rem;
+}
+.loginLink a:hover {
+  text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+  .registerCard {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+  .registerCard h1 {
+    font-size: 1.5rem;
+  }
+  .registerCard p {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  .registerCard input {
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+  .registerCard button {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+  .error,
+  .success,
+  .loginLink a {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .registerCard {
+    padding: 1rem;
+  }
+  .registerCard h1 {
+    font-size: 1.3rem;
+  }
+  .registerCard p {
+    font-size: 0.75rem;
+  }
+  .registerCard input {
+    padding: 8px;
+    font-size: 0.8rem;
+  }
+  .registerCard button {
+    padding: 8px;
+    font-size: 0.85rem;
+  }
 }

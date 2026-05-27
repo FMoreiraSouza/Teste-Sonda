@@ -8,10 +8,15 @@ const StatusBadge = ({ status }) => {
       : status === "Maintenance"
         ? "maintenance"
         : "grounded";
+  let statusText = "";
+  if (status === "Active") statusText = "Ativo";
+  else if (status === "Maintenance") statusText = "Manutenção";
+  else if (status === "Sold") statusText = "Vendido";
+  else statusText = status;
   return (
     <span className={styles["status-badge"]}>
       <span className={`${styles["status-dot"]} ${styles[statusClass]}`}></span>
-      {status}
+      {statusText}
     </span>
   );
 };
@@ -26,39 +31,44 @@ const FleetTable = ({ aircraft = [], onView, onEdit, onUpload, onDelete }) => {
   }
 
   return (
-    <table className={styles["fleet-table"]}>
-      <thead>
-        <tr>
-          <th>PREFIX (REGISTRATION)</th>
-          <th>MODEL</th>
-          <th>STATUS</th>
-          <th>LAST INSPECTION</th>
-          <th>ACTIONS</th>
-        </tr>
-      </thead>
-      <tbody>
-        {aircraft.map((ac) => (
-          <tr key={ac.id}>
-            <td>
-              <strong>{ac.prefix}</strong>
-            </td>
-            <td>{ac.model}</td>
-            <td>
-              <StatusBadge status={ac.status} />
-            </td>
-            <td>{ac.lastInspection}</td>
-            <td>
-              <div className={styles["action-icons"]}>
-                <FiEye onClick={() => onView(ac)} title="Visualizar" />
-                <FiEdit onClick={() => onEdit(ac)} title="Editar" />
-                <FiCamera onClick={() => onUpload(ac)} title="Enviar imagem" />
-                <FiTrash2 onClick={() => onDelete(ac)} title="Excluir" />
-              </div>
-            </td>
+    <div className={styles.tableWrapper}>
+      <table className={styles["fleet-table"]}>
+        <thead>
+          <tr>
+            <th>PREFIXO (REGISTRO)</th>
+            <th>MODELO</th>
+            <th>STATUS</th>
+            <th>ÚLTIMA INSPEÇÃO</th>
+            <th>AÇÕES</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {aircraft.map((ac) => (
+            <tr key={ac.id}>
+              <td data-label="PREFIXO (REGISTRO)">
+                <strong>{ac.prefix}</strong>
+              </td>
+              <td data-label="MODELO">{ac.model}</td>
+              <td data-label="STATUS">
+                <StatusBadge status={ac.status} />
+              </td>
+              <td data-label="ÚLTIMA INSPEÇÃO">{ac.lastInspection}</td>
+              <td data-label="AÇÕES">
+                <div className={styles["action-icons"]}>
+                  <FiEye onClick={() => onView(ac)} title="Visualizar" />
+                  <FiEdit onClick={() => onEdit(ac)} title="Editar" />
+                  <FiCamera
+                    onClick={() => onUpload(ac)}
+                    title="Enviar imagem"
+                  />
+                  <FiTrash2 onClick={() => onDelete(ac)} title="Excluir" />
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

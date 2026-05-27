@@ -21,6 +21,7 @@
   display: flex;
   gap: 16px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .filter-input {
@@ -57,22 +58,6 @@
   background: #0a425a;
 }
 
-.two-columns {
-  display: flex;
-  gap: 28px;
-  margin-top: 8px;
-}
-
-.table-container {
-  flex: 2;
-  background: white;
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-  border: 1px solid #edf2f7;
-  overflow-x: auto;
-}
-
 .filter-btn {
   background: #e2e8f0;
   border: none;
@@ -90,4 +75,53 @@
 
 .filter-btn:hover {
   background: #cbd5e1;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  border: 1px solid #edf2f7;
+}
+
+@media (max-width: 768px) {
+  .fleet-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filter-area {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filter-input {
+    width: auto;
+  }
+  .btn-primary,
+  .filter-btn {
+    justify-content: center;
+  }
+  .table-container {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fleet-header {
+    margin: 16px 0 12px 0;
+  }
+  .fleet-title h2 {
+    font-size: 1.2rem;
+  }
+  .fleet-title p {
+    font-size: 0.7rem;
+  }
+  .filter-input,
+  .filter-btn,
+  .btn-primary {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+  }
 }

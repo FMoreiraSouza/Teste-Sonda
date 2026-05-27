@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #0b2b40 0%, #1a4a6f 100%);
+  padding: 16px;
 }
 
 .loginCard {
@@ -81,4 +82,53 @@
   margin-top: 2rem;
   font-size: 0.75rem;
   color: #9ca3af;
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+  .loginCard {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+  .logoArea h1 {
+    font-size: 1.6rem;
+  }
+  .logoArea p {
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+  .inputGroup input {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+  }
+  .loginButton {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+  .registerLink a {
+    font-size: 0.8rem;
+  }
+  .footer {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .loginCard {
+    padding: 1rem;
+  }
+  .logoArea h1 {
+    font-size: 1.4rem;
+  }
+  .logoArea p {
+    font-size: 0.75rem;
+  }
+  .inputGroup input {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+  .loginButton {
+    padding: 8px;
+    font-size: 0.85rem;
+  }
 }

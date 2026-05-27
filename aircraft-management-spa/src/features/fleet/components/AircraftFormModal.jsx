@@ -99,7 +99,7 @@ const AircraftFormModal = ({
               />
             </div>
             <div>
-              <label>ICAO Code (4 letras)</label>
+              <label>Código ICAO (4 letras)</label>
               <input
                 name="icaoCode"
                 placeholder="Ex: B738"
@@ -143,17 +143,15 @@ const AircraftFormModal = ({
               />
             </div>
             <div className={styles.fullWidth}>
-              <div className={styles.fullWidth}>
-                <label className={styles.checkboxLabel}>
-                  <span>Vendido</span>
-                  <input
-                    type="checkbox"
-                    name="sold"
-                    checked={form.sold}
-                    onChange={handleChange}
-                  />
-                </label>
-              </div>
+              <label className={styles.checkboxLabel}>
+                <span>Vendido</span>
+                <input
+                  type="checkbox"
+                  name="sold"
+                  checked={form.sold}
+                  onChange={handleChange}
+                />
+              </label>
             </div>
           </div>
           <div className={styles.modalActions}>

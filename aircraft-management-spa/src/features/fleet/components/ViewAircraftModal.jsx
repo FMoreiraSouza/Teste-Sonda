@@ -18,7 +18,7 @@ export default function ViewAircraftModal({ isOpen, onClose, aircraft }) {
             <strong>Ano:</strong> {aircraft.year || "-"}
           </div>
           <div className={styles.detailItem}>
-            <strong>ICAO Code:</strong> {aircraft.icaoCode || "-"}
+            <strong>Código ICAO:</strong> {aircraft.icaoCode || "-"}
           </div>
           <div className={styles.detailItem}>
             <strong>Status:</strong> {aircraft.sold ? "Vendido" : "Ativo"}
