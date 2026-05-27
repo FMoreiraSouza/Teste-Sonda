@@ -1,0 +1,53 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: aircraft-postgres
+    environment:
+      POSTGRES_DB: aircraft_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - aircraft-net
+
+  backend:
+    build: ./aircraft-management-api
+    container_name: aircraft-backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+      SPRING_PROFILES_ACTIVE: s3
+      DB_URL: ${DB_URL}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_REGION: ${AWS_REGION}
+      AWS_S3_BUCKET: ${AWS_S3_BUCKET}
+      JWT_SECRET: ${JWT_SECRET}
+    depends_on:
+      - postgres
+    networks:
+      - aircraft-net
+
+  frontend:
+    build: ./aircraft-management-spa
+    container_name: aircraft-frontend
+    ports:
+      - "5173:80"
+    environment:
+      VITE_API_URL: http://localhost:8080
+    depends_on:
+      - backend
+    networks:
+      - aircraft-net
+
+volumes:
+  postgres_data:
+
+networks:
+  aircraft-net:

@@ -1,0 +1,26 @@
+﻿.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  font-size: 0.8rem;
+  color: #4a627a;
+}
+
+.pagination-controls {
+  display: flex;
+}
+
+.page-btn {
+  background: #f1f5f9;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: 0.1s;
+}
+
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

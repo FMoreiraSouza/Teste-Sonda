@@ -1,0 +1,130 @@
+﻿.registerContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0b2b40 0%, #1a4a6f 100%);
+  padding: 16px;
+}
+
+.registerCard {
+  background: white;
+  padding: 2rem;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.2);
+}
+
+.registerCard h1 {
+  font-size: 1.8rem;
+  color: #0b2b40;
+  margin-bottom: 0.5rem;
+}
+
+.registerCard p {
+  color: #5e6f8d;
+  margin-bottom: 1.5rem;
+}
+
+.registerCard input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 40px;
+  font-size: 0.9rem;
+}
+
+.registerCard button {
+  width: 100%;
+  padding: 12px;
+  background: #0f5b7a;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.registerCard button:hover {
+  background: #0a425a;
+}
+.registerCard button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.error {
+  margin-top: 1rem;
+  color: #e53e3e;
+  font-size: 0.85rem;
+}
+
+.success {
+  margin-top: 1rem;
+  color: #2ba150;
+  font-size: 0.85rem;
+}
+
+.loginLink {
+  margin-top: 1rem;
+}
+.loginLink a {
+  color: #0f5b7a;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+.loginLink a:hover {
+  text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+  .registerCard {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+  .registerCard h1 {
+    font-size: 1.5rem;
+  }
+  .registerCard p {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  .registerCard input {
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+  .registerCard button {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+  .error,
+  .success,
+  .loginLink a {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .registerCard {
+    padding: 1rem;
+  }
+  .registerCard h1 {
+    font-size: 1.3rem;
+  }
+  .registerCard p {
+    font-size: 0.75rem;
+  }
+  .registerCard input {
+    padding: 8px;
+    font-size: 0.8rem;
+  }
+  .registerCard button {
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+}

@@ -1,0 +1,263 @@
+﻿.top-header {
+  background: white;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+@media (min-width: 768px) {
+  .top-header {
+    padding: 16px 32px;
+  }
+}
+
+.breadcrumb {
+  font-size: 0.85rem;
+  color: #5a6e85;
+}
+
+.breadcrumb span:first-child {
+  color: #1e4a62;
+  font-weight: 600;
+}
+
+.dashboard-wrapper {
+  padding: 20px 16px;
+  flex: 1;
+}
+
+@media (min-width: 768px) {
+  .dashboard-wrapper {
+    padding: 28px 32px;
+  }
+}
+
+.app-footer {
+  margin-top: 40px;
+  border-top: 1px solid #e2edf2;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  color: #6c86a3;
+  background: white;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .app-footer {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 32px 24px;
+    text-align: left;
+  }
+}
+
+.footer-links {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (min-width: 640px) {
+  .footer-links {
+    gap: 24px;
+  }
+}
+
+.reportsContainer {
+  padding: 24px 32px;
+}
+
+.header {
+  margin-bottom: 28px;
+}
+
+.header h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #0f2b3b;
+  margin: 0 0 8px 0;
+}
+
+.header p {
+  color: #5d738c;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.unsoldCard {
+  background: white;
+  border-radius: 20px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid #edf2f7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.unsoldCard h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #4a627a;
+}
+
+.unsoldNumber {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #0f5b7a;
+  line-height: 1;
+}
+
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid #edf2f7;
+}
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0f2b3b;
+}
+
+.grid2cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 768px) {
+  .grid2cols {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.barList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.barItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.barLabel {
+  width: 60px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #4a627a;
+}
+
+.barWrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bar {
+  background-color: #0f5b7a;
+  height: 24px;
+  border-radius: 12px;
+  transition: width 0.3s;
+}
+
+.barValue {
+  font-size: 0.85rem;
+  font-weight: 600;
+  min-width: 30px;
+  color: #1e293b;
+}
+
+.manufacturerList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.manufacturerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #e2edf2;
+}
+
+.badge {
+  background: #e2e8f0;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #1e293b;
+}
+
+/* Tabela */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  text-align: left;
+  padding: 12px 8px 12px 0;
+  font-weight: 600;
+  color: #4a627a;
+  border-bottom: 1px solid #e2edf2;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.table td {
+  padding: 12px 8px 12px 0;
+  border-bottom: 1px solid #eff3f8;
+  font-size: 0.85rem;
+  color: #1e293b;
+}
+
+.errorContainer {
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid #edf2f7;
+}
+
+.errorMessage {
+  color: #e53e3e;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.retryButton {
+  background: #0f5b7a;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.retryButton:hover {
+  background: #0a425a;
+}
