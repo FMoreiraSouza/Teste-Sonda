@@ -68,7 +68,7 @@
     top: auto;
     left: auto;
     width: 260px;
-    height: 100vh; /* ocupar toda altura da viewport */
+    height: auto;
     transition: none;
   }
   .overlay {

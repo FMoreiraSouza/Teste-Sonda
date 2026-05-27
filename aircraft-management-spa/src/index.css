@@ -27,7 +27,6 @@ button {
   font-family: inherit;
 }
 
-/* Global toast animation */
 @keyframes slideIn {
   from {
     transform: translateX(100%);
