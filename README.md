@@ -15,7 +15,7 @@
 
 ## 📋 Visão Geral
 
-**AeroControl** se trata de um sistema que permite o gerenciamento completo de aeronaves (CRUD), busca com múltiplos critérios, geração de relatórios estatísticos, autenticação JWT com controle de permissões (ADMIN / USER), upload de imagens para AWS S3 e uma interface web responsiva construída com React.
+**AeroControl** é um sistema que permite o gerenciamento completo de aeronaves (CRUD), busca com múltiplos critérios, geração de relatórios estatísticos, autenticação JWT com controle de permissões (ADMIN / USER), upload de imagens para AWS S3 e uma interface web responsiva construída com React.
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -132,13 +132,13 @@ A comunicação entre frontend e backend é feita através do host localhost:808
 | `AWS_S3_BUCKET` | Nome do bucket S3 | Sim |
 | `SPRING_PROFILES_ACTIVE` | `s3` (uso real) | Sim |
 
-No ambiente Docker, as variáveis são definidas diretamente no `docker-compose.yml` ou via arquivo `.env`.
+No ambiente Docker, as variáveis são definidas via arquivo `.env`.
 
 ## ⚙️ Decisões Técnicas
 
-1. Backend: Java 17 + Spring Boot, JWT com roles, upload S3 com presigned URLs, perfis local/s3, Docker multi-stage.
+1. Backend: Java 17 + Spring Boot, JWT com roles, upload S3, Docker multi-stage, arquitetura em camadas.
 2. Frontend: React + Vite, arquitetura por features, CSS Modules, Axios com interceptor JWT, feedback visual (toasts/loading).
-3. Banco: PostgreSQL, coluna image_url como TEXT para suportar URLs longas.
+3. Banco de dados: PostgreSQL, com tabelas `aircrafts` e `users`.
 4. Segurança: Autenticação JWT, normalização de nomes de fabricantes no backend.
 5. Docker: Compose com três serviços (PostgreSQL, backend, frontend – servido via Nginx).
 
