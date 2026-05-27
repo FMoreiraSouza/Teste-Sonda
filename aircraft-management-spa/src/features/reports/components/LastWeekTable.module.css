@@ -1,0 +1,38 @@
+﻿.card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid #edf2f7;
+}
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0f2b3b;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  text-align: left;
+  padding: 12px 8px 12px 0;
+  font-weight: 600;
+  color: #4a627a;
+  border-bottom: 1px solid #e2edf2;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.table td {
+  padding: 12px 8px 12px 0;
+  border-bottom: 1px solid #eff3f8;
+  font-size: 0.85rem;
+  color: #1e293b;
+}

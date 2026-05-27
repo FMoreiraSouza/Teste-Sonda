@@ -1,7 +1,6 @@
-﻿/* FleetTable.module.css */
-
-.fleet-table {
+﻿.fleet-table {
   width: 100%;
+  min-width: 600px;
   border-collapse: collapse;
 }
 
@@ -43,14 +42,9 @@
   box-shadow: 0 0 0 2px #bef5cf;
 }
 
-.status-dot.maintenance {
-  background: #e67e22;
-  box-shadow: 0 0 0 2px #ffe0bf;
-}
-
-.status-dot.grounded {
-  background: #e53e3e;
-  box-shadow: 0 0 0 2px #ffdbdb;
+.status-dot.sold {
+  background: #6c757d;
+  box-shadow: 0 0 0 2px #e2e8f0;
 }
 
 .action-icons {
@@ -75,4 +69,15 @@
 
 .action-icons svg:last-child:hover {
   color: #b91c1c;
+}
+
+@media (max-width: 640px) {
+  .fleet-table th,
+  .fleet-table td {
+    padding: 8px 4px;
+    font-size: 0.75rem;
+  }
+  .action-icons svg {
+    font-size: 1rem;
+  }
 }

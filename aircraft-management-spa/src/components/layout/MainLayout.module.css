@@ -1,0 +1,15 @@
+﻿.appContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .appContainer {
+    flex-direction: row;
+  }
+}
+
+.mainContent {
+  flex: 1;
+  overflow-x: auto;
+}

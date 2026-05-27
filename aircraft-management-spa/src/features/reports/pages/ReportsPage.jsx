@@ -5,6 +5,10 @@ import {
   getManufacturerDistribution,
   getLastWeekAircrafts,
 } from "../api/reportsService";
+import UnsoldCountCard from "../components/UnsoldCountCard";
+import DecadeDistribution from "../components/DecadeDistribution";
+import ManufacturerDistribution from "../components/ManufacturerDistribution";
+import LastWeekTable from "../components/LastWeekTable";
 import styles from "./ReportsPage.module.css";
 
 export default function ReportsPage({ onToast }) {
@@ -63,68 +67,14 @@ export default function ReportsPage({ onToast }) {
           <p>Performance analítica detalhada dos ativos aéreos globais.</p>
         </div>
 
-        <div className={styles.unsoldCard}>
-          <h3>Quantidade de aeronaves não vendidas</h3>
-          <div className={styles.unsoldNumber}>{unsoldCount ?? "-"}</div>
-        </div>
+        <UnsoldCountCard count={unsoldCount} />
 
         <div className={styles.grid2cols}>
-          <div className={styles.card}>
-            <h3>Distribuição por década</h3>
-            <div className={styles.barList}>
-              {Object.entries(decadeData).map(([decade, count]) => (
-                <div key={decade} className={styles.barItem}>
-                  <span className={styles.barLabel}>{decade}s</span>
-                  <div className={styles.barWrapper}>
-                    <div
-                      className={styles.bar}
-                      style={{ width: `${(count / 20) * 100}%` }}
-                    ></div>
-                    <span className={styles.barValue}>{count}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className={styles.card}>
-            <h3>Distribuição por fabricante</h3>
-            <div className={styles.manufacturerList}>
-              {Object.entries(manufacturerData).map(([name, count]) => (
-                <div key={name} className={styles.manufacturerRow}>
-                  <span>{name}</span>
-                  <span className={styles.badge}>{count}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          <DecadeDistribution data={decadeData} />
+          <ManufacturerDistribution data={manufacturerData} />
         </div>
 
-        <div className={styles.card}>
-          <h3>Aeronaves cadastradas na última semana</h3>
-          {lastWeek.length === 0 ? (
-            <p>Nenhuma aeronave cadastrada na última semana.</p>
-          ) : (
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Marca</th>
-                  <th>Data de criação</th>
-                </tr>
-              </thead>
-              <tbody>
-                {lastWeek.map((ac) => (
-                  <tr key={ac.id}>
-                    <td>{ac.name}</td>
-                    <td>{ac.brand}</td>
-                    <td>{new Date(ac.createdAt).toLocaleDateString()}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
+        <LastWeekTable aircrafts={lastWeek} />
       </div>
 
       <div className={styles["app-footer"]}>

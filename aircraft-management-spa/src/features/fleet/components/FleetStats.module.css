@@ -1,7 +1,14 @@
 ﻿.stats-grid {
   display: flex;
-  gap: 24px;
+  flex-direction: column;
+  gap: 16px;
   margin-bottom: 32px;
+}
+
+@media (min-width: 640px) {
+  .stats-grid {
+    flex-direction: row;
+  }
 }
 
 .stat-card {
