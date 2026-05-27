@@ -20,8 +20,14 @@ public class AircraftServiceImpl implements AircraftService {
 
     private final AircraftRepository repository;
 
+    private String normalizeBrand(String brand) {
+        if (brand == null || brand.isBlank()) return brand;
+        return brand.substring(0, 1).toUpperCase() + brand.substring(1).toLowerCase();
+    }
+
     @Override
     public Aircraft create(Aircraft aircraft) {
+        aircraft.setBrand(normalizeBrand(aircraft.getBrand()));
         if (repository.existsByNameAndBrand(aircraft.getName(), aircraft.getBrand())) {
             throw new BusinessException("Aircraft with same name and brand already exists");
         }
@@ -71,12 +77,14 @@ public class AircraftServiceImpl implements AircraftService {
     public Aircraft update(Long id, Aircraft updatedAircraft) {
         Aircraft existing = findById(id);
 
-        if (repository.existsByNameAndBrandAndIdNot(updatedAircraft.getName(), updatedAircraft.getBrand(), id)) {
+        String normalizedBrand = normalizeBrand(updatedAircraft.getBrand());
+
+        if (repository.existsByNameAndBrandAndIdNot(updatedAircraft.getName(), normalizedBrand, id)) {
             throw new RuntimeException("Another aircraft with same name and brand already exists");
         }
 
         existing.setName(updatedAircraft.getName());
-        existing.setBrand(updatedAircraft.getBrand());
+        existing.setBrand(normalizedBrand);
         existing.setYear(updatedAircraft.getYear());
         existing.setDescription(updatedAircraft.getDescription());
         existing.setSold(updatedAircraft.getSold());

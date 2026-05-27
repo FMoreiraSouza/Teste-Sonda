@@ -2,7 +2,7 @@ package com.example.aircraft_management_api.aircraft.controller;
 
 import com.example.aircraft_management_api.aircraft.entity.Aircraft;
 import com.example.aircraft_management_api.aircraft.service.AircraftService;
-import com.example.aircraft_management_api.files.StorageService;
+import com.example.aircraft_management_api.aircraft.service.StorageService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.example.aircraft_management_api.files;
+package com.example.aircraft_management_api.aircraft.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
