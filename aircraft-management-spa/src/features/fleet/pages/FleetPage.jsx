@@ -135,7 +135,7 @@ export default function FleetPage({ onToast }) {
   };
 
   const handleRetry = () => {
-    resetSearch(); // ou refresh() – ambos recarregam os dados
+    resetSearch();
   };
 
   return (
