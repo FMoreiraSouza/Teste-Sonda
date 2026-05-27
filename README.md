@@ -1,5 +1,18 @@
 # AeroControl – Sistema de Gestão de Frotas Aéreas
 
+![Java](https://img.shields.io/badge/Java-17-orange?logo=openjdk)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.6-green?logo=springboot)
+![Spring Security](https://img.shields.io/badge/Spring%20Security-JWT-blue?logo=springsecurity)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue?logo=postgresql)
+![AWS S3](https://img.shields.io/badge/AWS%20S3-SDK%20v2-orange?logo=amazons3)
+![Docker](https://img.shields.io/badge/Docker-27-blue?logo=docker)
+![React](https://img.shields.io/badge/React-19-blue?logo=react)
+![Vite](https://img.shields.io/badge/Vite-6-yellow?logo=vite)
+![Axios](https://img.shields.io/badge/Axios-1.16-purple?logo=axios)
+![CSS Modules](https://img.shields.io/badge/CSS%20Modules-blue)
+![Swagger](https://img.shields.io/badge/Swagger-OpenAPI-green?logo=swagger)
+![JWT](https://img.shields.io/badge/JWT-Authentication-red?logo=jsonwebtokens)
+
 ## 📋 Visão Geral
 
 **AeroControl** se trata de um sistema que permite o gerenciamento completo de aeronaves (CRUD), busca com múltiplos critérios, geração de relatórios estatísticos, autenticação JWT com controle de permissões (ADMIN / USER), upload de imagens para AWS S3 e uma interface web responsiva construída com React.
@@ -7,7 +20,7 @@
 ## 🛠️ Tecnologias Utilizadas
 
 ### Backend
-- **Java 17** + **Spring Boot 4.0.6**
+- **Java 17** + **Spring Boot 4.0.6** (linguagem e framework do back‑end)
 - **Spring Security** + **JWT** (autenticação e autorização)
 - **Spring Data JPA** + **Hibernate** (persistência)
 - **PostgreSQL** (banco de dados relacional)
@@ -48,7 +61,8 @@ O frontend foi organizado por domínios (features), promovendo alta coesão e ma
 - **`features/auth`** – telas de login, registro e serviços de autenticação.
 - **`features/fleet`** – gerenciamento de aeronaves (listagem, formulários, tabela, modais, upload).
 - **`features/reports`** – página de relatórios com gráficos e tabela.
-- **`components`** – componentes comuns (toast, paginação, layout, sidebar).
+- **`components/common`** – componentes comuns (toast, paginação).
+- **`components/layout`** – componentes estruturais (layout principal, sidebar).
 
 ### Containerização (Docker)
 Todos os serviços são definidos e executados em conjunto utilizando `docker-compose.yml`:
@@ -79,10 +93,11 @@ A comunicação entre frontend e backend é feita através do host localhost:808
 - Frontend: http://localhost:5173 (porta configurada)
 - Backend Swagger: http://localhost:8080/swagger-ui.html
 
-> **Credenciais padrão** (criadas automaticamente pelo `DataInitializer`):
-- **ADMIN**:
-   - user: `admin`
-   - password: `admin123`
+> **Credenciais padrão** (criadas automaticamente para testes):
+> - ADMIN:
+>    - user: `admin`
+>    - password: `admin123`
+> - Possibilidade de registrar novos usuários via tela de cadastro (apenas role USER).
 
 ### Execução manual (sem Docker)
 
