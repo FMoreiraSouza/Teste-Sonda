@@ -1,19 +1,19 @@
 ﻿.appContainer {
   display: flex;
-  min-height: 100vh;
+  min-height: 100%;
   position: relative;
 }
 
 .hamburger {
   position: fixed;
-  top: 10px;
+  top: 12px;
   right: 16px;
   z-index: 1100;
   background: white;
   border: none;
   border-radius: 50%;
-  width: 16px;
-  height: 16px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,8 +24,8 @@
 }
 
 .hamburger svg {
-  width: 12px;
-  height: 12px;
+  width: 20px;
+  height: 20px;
 }
 
 .hamburger:hover {
@@ -68,6 +68,7 @@
     top: auto;
     left: auto;
     width: 260px;
+    height: auto;
     transition: none;
   }
   .overlay {
