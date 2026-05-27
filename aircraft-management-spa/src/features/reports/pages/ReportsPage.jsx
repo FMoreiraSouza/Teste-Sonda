@@ -17,11 +17,13 @@ export default function ReportsPage({ onToast }) {
   const [manufacturerData, setManufacturerData] = useState({});
   const [lastWeek, setLastWeek] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchReports = async () => {
       try {
         setLoading(true);
+        setError(null);
         const [unsold, decade, manufacturer, lastWeekData] = await Promise.all([
           getUnsoldCount(),
           getDecadeDistribution(),
@@ -32,15 +34,16 @@ export default function ReportsPage({ onToast }) {
         setDecadeData(decade);
         setManufacturerData(manufacturer);
         setLastWeek(lastWeekData);
-      } catch (error) {
-        console.error("Erro ao carregar relatórios:", error);
+      } catch (err) {
+        console.error("Erro ao carregar relatórios:", err);
+        setError("Não foi possível carregar os dados dos relatórios.");
         onToast?.("Erro ao carregar dados dos relatórios");
       } finally {
         setLoading(false);
       }
     };
     fetchReports();
-  }, [onToast]);
+  }, []); // <- executa apenas uma vez na montagem
 
   if (loading) {
     return (
@@ -49,6 +52,22 @@ export default function ReportsPage({ onToast }) {
         style={{ textAlign: "center", padding: "2rem" }}
       >
         Carregando relatórios...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={styles["dashboard-wrapper"]}>
+        <div className={styles.errorContainer}>
+          <p className={styles.errorMessage}>⚠️ {error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className={styles.retryButton}
+          >
+            Tentar novamente
+          </button>
+        </div>
       </div>
     );
   }

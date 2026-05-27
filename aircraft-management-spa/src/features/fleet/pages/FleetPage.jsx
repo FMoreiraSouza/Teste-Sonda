@@ -29,6 +29,7 @@ export default function FleetPage({ onToast }) {
     performSearch,
     resetSearch,
     loading,
+    error,
   } = useFleetData();
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -69,9 +70,9 @@ export default function FleetPage({ onToast }) {
         await uploadImage(aircraft.id, file);
         onToast?.(`Imagem enviada com sucesso para ${aircraft.name}`);
         await refresh();
-      } catch (error) {
-        console.error(error);
-        onToast?.(error.response?.data?.message || "Erro ao enviar imagem");
+      } catch (err) {
+        console.error(err);
+        onToast?.(err.response?.data?.message || "Erro ao enviar imagem");
       }
     };
     input.click();
@@ -100,9 +101,9 @@ export default function FleetPage({ onToast }) {
       await refresh();
       setModalOpen(false);
       setEditingAircraft(null);
-    } catch (error) {
-      console.error(error);
-      onToast?.(error.response?.data?.message || "Erro ao salvar aeronave");
+    } catch (err) {
+      console.error(err);
+      onToast?.(err.response?.data?.message || "Erro ao salvar aeronave");
     } finally {
       setSubmitting(false);
     }
@@ -118,9 +119,9 @@ export default function FleetPage({ onToast }) {
         await deleteAircraft(aircraft.id);
         onToast?.(`Aeronave ${aircraft.name} excluída com sucesso!`);
         await refresh();
-      } catch (error) {
-        console.error(error);
-        onToast?.(error.response?.data?.message || "Erro ao excluir aeronave");
+      } catch (err) {
+        console.error(err);
+        onToast?.(err.response?.data?.message || "Erro ao excluir aeronave");
       }
     }
   };
@@ -131,6 +132,10 @@ export default function FleetPage({ onToast }) {
     } else {
       performSearch(filters);
     }
+  };
+
+  const handleRetry = () => {
+    resetSearch(); // ou refresh() – ambos recarregam os dados
   };
 
   return (
@@ -158,6 +163,9 @@ export default function FleetPage({ onToast }) {
           onDelete={handleDelete}
           onUpload={handleUpload}
           onOpenFilters={() => setFiltersModalOpen(true)}
+          error={error}
+          loading={loading}
+          onRetry={handleRetry}
         />
       </div>
 

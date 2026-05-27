@@ -2,17 +2,18 @@
 import styles from "./FleetTable.module.css";
 
 const StatusBadge = ({ status }) => {
-  const statusClass =
-    status === "Active"
-      ? "active"
-      : status === "Maintenance"
-        ? "maintenance"
-        : "grounded";
+  let statusClass = "";
   let statusText = "";
-  if (status === "Active") statusText = "Ativo";
-  else if (status === "Maintenance") statusText = "Manutenção";
-  else if (status === "Sold") statusText = "Vendido";
-  else statusText = status;
+  if (status === "Active") {
+    statusClass = "active";
+    statusText = "Ativo";
+  } else if (status === "Sold") {
+    statusClass = "sold";
+    statusText = "Vendido";
+  } else {
+    statusClass = "active";
+    statusText = status;
+  }
   return (
     <span className={styles["status-badge"]}>
       <span className={`${styles["status-dot"]} ${styles[statusClass]}`}></span>
@@ -21,7 +22,22 @@ const StatusBadge = ({ status }) => {
   );
 };
 
-const FleetTable = ({ aircraft = [], onView, onEdit, onUpload, onDelete }) => {
+const FleetTable = ({
+  aircraft = [],
+  error,
+  onView,
+  onEdit,
+  onUpload,
+  onDelete,
+}) => {
+  if (error) {
+    return (
+      <div style={{ padding: "2rem", textAlign: "center", color: "#e53e3e" }}>
+        ⚠️ {error}
+      </div>
+    );
+  }
+
   if (!aircraft || aircraft.length === 0) {
     return (
       <div style={{ padding: "2rem", textAlign: "center" }}>

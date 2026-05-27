@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import AppRoutes from "./routes/AppRoutes";
 import Toast from "./components/common/Toast";
 import "./index.css";
@@ -6,8 +6,8 @@ import "./index.css";
 function App() {
   const [toastMessage, setToastMessage] = useState("");
 
-  const showToast = (msg) => setToastMessage(msg);
-  const closeToast = () => setToastMessage("");
+  const showToast = useCallback((msg) => setToastMessage(msg), []);
+  const closeToast = useCallback(() => setToastMessage(""), []);
 
   return (
     <>

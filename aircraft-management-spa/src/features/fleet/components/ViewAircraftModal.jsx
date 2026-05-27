@@ -56,13 +56,7 @@ export default function ViewAircraftModal({ isOpen, onClose, aircraft }) {
                 <img
                   src={aircraft.imageUrl}
                   alt={aircraft.name}
-                  style={{
-                    maxWidth: "200px",
-                    maxHeight: "150px",
-                    display: "block",
-                    marginTop: "8px",
-                    borderRadius: "8px",
-                  }}
+                  className={styles.thumbnail}
                 />
               </a>
             ) : (

@@ -18,9 +18,23 @@ const Fleet = ({
   onUpload,
   onDelete,
   onOpenFilters,
+  error,
+  loading,
+  onRetry, // nova prop
 }) => {
   const start = (currentPage - 1) * pageSize + 1;
   const end = Math.min(currentPage * pageSize, filteredCount);
+
+  if (loading) {
+    return (
+      <div
+        className={styles["table-container"]}
+        style={{ textAlign: "center" }}
+      >
+        Carregando dados da frota...
+      </div>
+    );
+  }
 
   return (
     <>
@@ -50,22 +64,34 @@ const Fleet = ({
       </div>
 
       <div className={styles["table-container"]}>
-        <FleetTable
-          aircraft={paginatedData}
-          onView={onView}
-          onEdit={onEdit}
-          onUpload={onUpload}
-          onDelete={onDelete}
-        />
-        {filteredCount > 0 && (
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={onPageChange}
-            start={start}
-            end={end}
-            total={filteredCount}
-          />
+        {error ? (
+          <div className={styles.errorContainer}>
+            <p className={styles.errorMessage}>⚠️ {error}</p>
+            <button onClick={onRetry} className={styles.retryButton}>
+              Tentar novamente
+            </button>
+          </div>
+        ) : (
+          <>
+            <FleetTable
+              aircraft={paginatedData}
+              error={error}
+              onView={onView}
+              onEdit={onEdit}
+              onUpload={onUpload}
+              onDelete={onDelete}
+            />
+            {filteredCount > 0 && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={onPageChange}
+                start={start}
+                end={end}
+                total={filteredCount}
+              />
+            )}
+          </>
         )}
       </div>
     </>

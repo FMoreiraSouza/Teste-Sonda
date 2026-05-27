@@ -4,6 +4,7 @@ import { fetchAircrafts, searchAircrafts } from "../api/aircraftService";
 export const useFleetData = () => {
   const [aircraft, setAircraft] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [isSearchMode, setIsSearchMode] = useState(false);
@@ -36,15 +37,18 @@ export const useFleetData = () => {
   const loadAircrafts = useCallback(async () => {
     try {
       setLoading(true);
-      console.log("🔄 Buscando aeronaves do backend...");
+      setError(null);
       const data = await fetchAircrafts();
       const mapped = mapAircraft(data);
-      console.log(`✅ ${mapped.length} aeronaves carregadas`);
       setAircraft(mapped);
       setIsSearchMode(false);
       setSearchTerm("");
-    } catch (error) {
-      console.error("❌ Erro ao carregar aeronaves:", error);
+    } catch (err) {
+      console.error("Erro ao carregar aeronaves:", err);
+      setError(
+        "Falha ao carregar a lista de aeronaves. Tente novamente mais tarde.",
+      );
+      setAircraft([]);
     } finally {
       setLoading(false);
     }
@@ -54,16 +58,17 @@ export const useFleetData = () => {
     async (params) => {
       try {
         setLoading(true);
-        console.log("🔍 Buscando com filtros:", params);
+        setError(null);
         const data = await searchAircrafts(params);
         const mapped = mapAircraft(data);
-        console.log(`✅ ${mapped.length} resultados encontrados`);
         setAircraft(mapped);
         setIsSearchMode(true);
         setSearchTerm("");
         setCurrentPage(1);
-      } catch (error) {
-        console.error("❌ Erro na busca avançada:", error);
+      } catch (err) {
+        console.error("Erro na busca avançada:", err);
+        setError("Falha na busca. Verifique sua conexão ou tente novamente.");
+        setAircraft([]);
       } finally {
         setLoading(false);
       }
@@ -126,5 +131,6 @@ export const useFleetData = () => {
     resetSearch,
     isSearchMode,
     loading,
+    error,
   };
 };
